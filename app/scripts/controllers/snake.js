@@ -1,6 +1,8 @@
-'use strict';
+/*'use strict';
 
 angular.module('matrixApp')
-  .controller('SnakeCtrl', function ($scope) {
+	.controller('SnakeCtrl', function ($scope) {
     
-  });
+}
+);
+*/

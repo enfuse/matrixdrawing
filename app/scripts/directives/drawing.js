@@ -26,7 +26,7 @@ angular.module('matrixApp')
         // variable that decides if something should be drawn on mousemove
         var drawing = false;
         // the last coordinates before the current move
-        var pixSize = 20, lastPoint = null, mouseDown = 0;
+        var pixSize = 20, lastPoint = null/*, mouseDown = 0*/;
 
         var bw = 640;
         var bh = 320;

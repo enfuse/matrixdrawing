@@ -7,7 +7,7 @@ angular.module('matrixappCoordenas', [])
     var firebase = {};
     firebase = new Firebase('https://d3interzonas.firebaseio.com/default');
     var presets = {};
-        presets = new Firebase('https://d3interzonas.firebaseio.com/presets');
+    presets = new Firebase('https://d3interzonas.firebaseio.com/presets');
     return {
       base: firebase,
       on: function (eventName, callback){
@@ -39,7 +39,7 @@ angular.module('matrixappCoordenas', [])
         presets.once('value', function(todosSnap) {
           $rootScope.$apply(function(){
             deferred.resolve(todosSnap);
-          })
+          });
         });
         return deferred.promise;
       }

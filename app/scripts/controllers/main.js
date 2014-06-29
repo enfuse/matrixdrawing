@@ -1,3 +1,4 @@
+/*global $:false */
 'use strict';
 
 angular.module('matrixApp')
@@ -28,7 +29,7 @@ angular.module('matrixApp')
     });
     $scope.seleccionPreset = function(){
       coordenadasService.sustituirPreset($scope.preset);
-    }
+    };
     $scope.botonColor = function(color) {
       $scope.elcolor = color;
     };
