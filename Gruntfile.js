@@ -27,6 +27,11 @@ module.exports = function (grunt) {
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
+      less: {
+        files: ['<%= yeoman.app %>/less/**/*.less',
+                '<%= yeoman.app %>/bower_components/bootstrap/**/*.less'],
+        tasks: ['less:server']
+      },
       js: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
         tasks: ['newer:jshint:all'],
@@ -56,7 +61,39 @@ module.exports = function (grunt) {
         ]
       }
     },
-
+    less: {
+      options: {
+        paths: '<%= yeoman.app %>/_bower_components'
+      },
+      dist: {
+        options: {
+          yuicompress: true,
+          compress: true
+        },
+        files: [{
+            expand: true,
+            cwd: '<%= yeoman.app %>/less',
+            src: ['main.less'],
+            dest: '<%= yeoman.app %>/styles/',
+            ext: '.css'
+          }
+        ]
+      },
+      server: {
+        options: {
+          yuicompress: false,
+          compress: false
+        },
+        files: [{
+            expand: true,
+            cwd: '<%= yeoman.app %>/less',
+            src: ['main.less'],
+            dest: '<%= yeoman.app %>/styles/',
+            ext: '.css'
+          }
+        ]
+      }
+    },
     // The actual grunt server settings
     connect: {
       options: {

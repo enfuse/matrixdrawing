@@ -5,9 +5,9 @@ angular.module('matrixappCoordenas', [])
   .factory('coordenadasService', function ($q, $rootScope) {
     var deferred = $q.defer();
     var firebase = {};
-    firebase = new Firebase('https://d3interzonas.firebaseio.com/default');
+    firebase = new Firebase(matrixdrawing.live_url);
     var presets = {};
-    presets = new Firebase('https://d3interzonas.firebaseio.com/presets');
+    presets = new Firebase(matrixdrawing.artworks_url);
     return {
       base: firebase,
       on: function (eventName, callback){
@@ -18,7 +18,7 @@ angular.module('matrixappCoordenas', [])
       },
       addCoordenada: function(coordenada, color){
         firebase.child(coordenada).set(color);
-      },
+      },     
       borrar: function(){
         firebase.remove();
       },
@@ -29,7 +29,7 @@ angular.module('matrixappCoordenas', [])
         });
       },
       sustituirPreset: function(nombre){
-        firebase.remove();
+        //firebase.remove(); 
         var hijoPreset = presets.child(nombre);
         hijoPreset.once('value', function(snap) {
           firebase.set(snap.val());
