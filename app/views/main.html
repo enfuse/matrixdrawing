@@ -39,11 +39,12 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-1 toolbar">
-            <button colorpicker type="button" colorpicker-position="right" title="Selecciona un color"
-                    class="btn btn-lg" colorpicker-position="top"
-                    style="background-color:{{elcolor}}" ng-model="elcolor">
+            <!--button  type="button"  title="Selecciona un color"
+                    class="btn btn-lg picka-color"
+                    style="background-color:{{elcolor}}" onclick="">
                 <span class="glyphicon glyphicon-tint"></span>
-            </button>
+            </button-->
+
             <button type="button" class="btn btn-default btn-lg" ng-click="borrar()" title="Limpia al pantalla">
                 <span class="glyphicon glyphicon-trash"></span>
             </button>
@@ -51,7 +52,7 @@
                     title="Rellena la pantalla con el color actual">
                 <span class="glyphicon glyphicon-certificate"></span>
             </button>
-
+            <input ng-model="elcolor" type="text" value="000" name="border-color" class="pick-a-color form-control">
         </div>
         <div class="col-sm-11">
             <canvas id="canvas" width="121" height="121" drawing></canvas>

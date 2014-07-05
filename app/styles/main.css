@@ -84,12 +84,25 @@ canvas {
 .colorpicker-position-right .dropdown-menu::after {
   border-right-color: #008cba !important;
 }
+.pick-a-color-markup .input-group-btn .color-dropdown.no-hex {
+  padding: 16px 26px;
+  width: auto;
+  height: auto;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  margin-left: 0;
+  display: inline-block;
+}
 #footer {
   padding: 10px 0;
   background-color: #eeeeee;
   width: 100%;
-  position: absolute;
-  bottom: 0px;
+}
+@media (min-height: 490px) {
+  #footer {
+    position: absolute;
+    bottom: 0px;
+  }
 }
 #footer .desarrollado-taller p {
   width: 100px;

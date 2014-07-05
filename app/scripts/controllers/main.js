@@ -8,6 +8,8 @@ angular.module('matrixApp')
     $scope.elcolor = 'FFFFFF';
     $scope.listaNombres = [];
 
+    $scope.$on('$viewContentLoaded', function() {$(".pick-a-color").pickAColor({showHexInput:false, inlineDropdown: true});})
+
     $scope.borrar = function(){
       coordenadasService.borrar();
     };

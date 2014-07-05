@@ -12,14 +12,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title></title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="stylesheet" href="css/pick-a-color-1.2.3.min.css" />
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/pick-a-color/build/1.2.3/css/pick-a-color-1.2.3.min.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,app}) styles/main.css -->
@@ -36,6 +35,10 @@
     your browser</a> to improve your experience.</p>
 <![endif]-->
 <div class="pintar center" ng-view=""></div>
+
+
+
+
 
 
 <footer id="footer">
@@ -85,11 +88,12 @@
 <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
 <script src="bower_components/angular-route/angular-route.js"></script>
 <script src="bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
-<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-<script src="bower_components/tinycolor/tinycolor.js"></script>
-<script src="bower_components/pick-a-color/build/1.2.3/js/pick-a-color-1.2.3.min.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
+    <script src="bower_components/tinycolor/tinycolor.js"></script>
+<script src="js/pick-a-color-1.2.3.min.js"></script>
+    <script src="js/tinycolor.js"></script>
+
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
 <script src="scripts/config.js"></script>
@@ -100,7 +104,12 @@
 <script src="scripts/controllers/snake.js"></script>
 <script src="scripts/directives/plasma.js"></script>
 <script src="scripts/controllers/iconos.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(".pick-a-color").pickAColor();
+        });
 
+    </script>
 <!-- endbuild -->
 </body>
 </html>
