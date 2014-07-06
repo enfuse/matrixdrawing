@@ -84,14 +84,40 @@ canvas {
 .colorpicker-position-right .dropdown-menu::after {
   border-right-color: #008cba !important;
 }
+.pick-a-color-markup {
+  display: inline-block !important;
+  margin: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  white-space: nowrap;
+  font-size: 15px;
+  line-height: 1.42857143;
+}
+.pick-a-color-markup .color-preview.current-color {
+  border-radius: 0;
+  width: 83px;
+  height: 10px;
+  margin: 31px 0 0 -32px;
+  border: none;
+}
+.pick-a-color-markup .input-group-btn {
+  display: inline;
+}
 .pick-a-color-markup .input-group-btn .color-dropdown.no-hex {
-  padding: 16px 26px;
-  width: auto;
-  height: auto;
+  display: inline;
+  padding: 16px 32px;
+  width: 85px;
+  height: 59px;
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
   margin-left: 0;
   display: inline-block;
+}
+.pick-a-color-markup .input-group-btn .color-dropdown.no-hex .caret {
+  display: none;
 }
 #footer {
   padding: 10px 0;
