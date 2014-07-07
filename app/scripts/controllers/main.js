@@ -5,7 +5,7 @@ angular.module('matrixApp')
   .controller('MainCtrl', function ($scope, coordenadasService) {
     $scope.movida = '';
     $scope.colors = ['fff','000','f00','0f0','00f','777','f8d','f05','f80','0f8','FFFF00','08f','408','8ff'];
-    $scope.elcolor = 'FFFFFF';
+    $scope.elcolor = '000';
     $scope.listaNombres = [];
 
     $scope.$on('$viewContentLoaded', function() {$(".pick-a-color").pickAColor({showHexInput:false, inlineDropdown: true});})

@@ -2,6 +2,8 @@
 @import '../bower_components/bootswatch/yeti/variables.less';
 @import '../bower_components/bootstrap/less/mixins.less';
 
+@import 'colorpicker.less';
+
 .container-full {
   margin: 0 auto;
   width: 100%;
@@ -9,55 +11,6 @@
 
 .navbar{
   color: #fff;
-}
-
-.colorpicker .dropdown-menu{
-  background-color: @brand-primary;
-}
-.colorpicker-position-right .dropdown-menu::after{
-  border-right-color: @brand-primary !important;
-}
-
-.pick-a-color-markup {
-  display: inline-block !important;
-  margin: 0;
-  font-weight: normal;
-  text-align: center;
-  vertical-align: middle;
-  cursor: pointer;
-  background-image: none;
-  white-space: nowrap;
-  font-size: 15px;
-  line-height: 1.42857143;
-
-  .color-preview {
-    &.current-color{
-      border-radius: 0;
-      width: 83px;
-      height: 10px;
-      margin: 31px 0 0 -32px;
-      border: none;
-    }
-  }
-  .input-group-btn{
-    display: inline;
-  }
-}
-
-.pick-a-color-markup .input-group-btn .color-dropdown.no-hex{
-  display: inline;
-  padding: 16px 32px;
-  width: 85px;
-  height: 59px;
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
-  margin-left: 0;
-  display: inline-block;
-
-
-  .caret{
-    display:none;
-  }
 }
 
 #footer{

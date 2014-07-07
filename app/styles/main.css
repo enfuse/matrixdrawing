@@ -71,20 +71,10 @@ canvas {
 .toolbar {
   margin-bottom: 10px;
 }
-.container-full {
-  margin: 0 auto;
-  width: 100%;
+.colorpicker-container {
+  display: inline;
 }
-.navbar {
-  color: #fff;
-}
-.colorpicker .dropdown-menu {
-  background-color: #008cba;
-}
-.colorpicker-position-right .dropdown-menu::after {
-  border-right-color: #008cba !important;
-}
-.pick-a-color-markup {
+.colorpicker-container .pick-a-color-markup {
   display: inline-block !important;
   margin: 0;
   font-weight: normal;
@@ -96,18 +86,13 @@ canvas {
   font-size: 15px;
   line-height: 1.42857143;
 }
-.pick-a-color-markup .color-preview.current-color {
-  border-radius: 0;
-  width: 83px;
-  height: 10px;
-  margin: 31px 0 0 -32px;
-  border: none;
+@media (max-width: 768px) {
+  .colorpicker-container .pick-a-color-markup .color-menu.no-hex {
+    margin-bottom: 50px;
+    margin-left: -150px;
+  }
 }
-.pick-a-color-markup .input-group-btn {
-  display: inline;
-}
-.pick-a-color-markup .input-group-btn .color-dropdown.no-hex {
-  display: inline;
+.colorpicker-container .pick-a-color-markup .input-group-btn .color-dropdown.no-hex {
   padding: 16px 32px;
   width: 85px;
   height: 59px;
@@ -116,8 +101,48 @@ canvas {
   margin-left: 0;
   display: inline-block;
 }
-.pick-a-color-markup .input-group-btn .color-dropdown.no-hex .caret {
+.colorpicker-container .pick-a-color-markup .input-group-btn .color-dropdown.no-hex .caret {
   display: none;
+}
+.colorpicker-container .pick-a-color-markup .input-group-btn .color-preview.current-color {
+  border-radius: 0;
+  width: 83px;
+  height: 10px;
+  margin: 31px 0 0 -32px;
+  border: none;
+}
+.colorpicker-container .pick-a-color-markup .input-group-btn {
+  display: inline;
+}
+.colorpicker-container .glyphicon {
+  top: -42px;
+  left: 27px;
+  z-index: 5;
+}
+@media (max-width: 768px) {
+  .colorpicker-container .glyphicon {
+    top: 0;
+    left: -53px;
+  }
+}
+@media (min-width: 992px) and (max-width: 1200px) {
+  .colorpicker-container .glyphicon {
+    top: -42px;
+    left: 18px;
+  }
+}
+@media (min-width: 1200px) {
+  .colorpicker-container .glyphicon {
+    top: -43px;
+    left: 10px;
+  }
+}
+.container-full {
+  margin: 0 auto;
+  width: 100%;
+}
+.navbar {
+  color: #fff;
 }
 #footer {
   padding: 10px 0;
