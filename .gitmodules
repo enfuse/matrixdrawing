@@ -4,6 +4,3 @@
 [submodule "daemon"]
 	path = daemon
 	url = git@github.com:enfuse/matrixdrawer-daemon.git
-[submodule "app"]
-	path = app
-	url = git@github.com:enfuse/matrixdrawer-angular.git
