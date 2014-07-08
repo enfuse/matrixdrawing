@@ -7,13 +7,14 @@
     "es5-shim": "~2.1.0",
     "jquery": "~1.10.2",
     "angular-resource": "1.2.6",
-    "firebase": "*",
     "angular-cookies": "1.2.6",
     "angular-sanitize": "1.2.6",
     "angular-route": "1.2.6",
-    "angular-bootstrap-colorpicker": "3.0.5",
-    "font-awesome": "*",
-    "bootswatch": "*"
+    "firebase": "*",
+    "bootstrap": "3.2.0",
+    "bootswatch-dist": "3.2.0-yeti",
+    "pick-a-color": "1.2.3",
+    "tinycolor": "1.0.0"
   },
   "devDependencies": {
     "angular-mocks": "1.2.6",
@@ -21,6 +22,7 @@
   },
   "resolutions": {
     "jquery": "~1.10.2",
-    "bootstrap": "~3.2.0"
+    "bootstrap": "3.2.0",
+    "tinycolor": "1.0.0"
   }
 }
