@@ -12,5 +12,6 @@ Es:
 
 Sistema para el control de matriz de led
 ----------------------------------------
-Este repositorio es un fork del proyecto de Karlos G. Liberal y Aitor Resano para dibujar en vivo sobre una matriz de leds controlada por una placa arduino.
+Este repositorio es un fork del proyecto de Karlos G. Liberal y Aitor Resano para dibujar en vivo sobre una matriz de leds controlada por una placa arduino: https://github.com/karlosgliberal/matrixdrawing
+
 
