@@ -1,0 +1,151 @@
+.btn-matrix {
+  width: 30px;
+  height: 30px;
+  transition: opacity 0.35s ease-in-out;
+  -moz-transition: opacity 0.35s ease-in-out;
+  -webkit-transition: opacity 0.35s ease-in-out;
+  -o-transition: opacity 0.35s ease-in-out;
+}
+.btn-borrar {
+  color: #333333;
+  font-size: 24px;
+  background-color: #eee;
+}
+.btn-toolbar .btn-group {
+  margin-top: 0.4em;
+}
+.btn-toolbar button:hover {
+  opacity: 0.7;
+}
+.btn {
+  background-image: none;
+}
+.center {
+  text-align: center;
+}
+.inner {
+  padding: 5px;
+}
+.container-canvas {
+  /* This could be done in one single declaration. See the extended sample. */
+  margin-right: auto;
+  margin-left: auto;
+  width: 800px;
+}
+h1 {
+  font-family: 'Duru Sans', sans-serif;
+  color: #999999;
+  font-size: 38px;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+  margin-top: 38px;
+}
+.center1 {
+  margin: 0 auto;
+}
+.container-pixel {
+  margin-top: 20px;
+}
+a:hover {
+  opacity: 0.7;
+}
+canvas {
+  background-color: #111;
+}
+.toolbar {
+  margin-bottom: 10px;
+}
+.colorpicker-container {
+  display: inline;
+  /*
+  .glyphicon{
+    top: -42px;
+    left: 27px;
+    z-index: 5;
+    @media(max-width: @screen-sm){
+      top: 0;
+      left: -53px;
+    }
+    @media(min-width: @screen-md) and (max-width: @screen-lg){
+      top: -42px;
+      left: 18px;
+    }
+    @media(min-width: @screen-lg){
+      top: -43px;
+      left: 10px;
+    }
+  }*/
+}
+.colorpicker-container .pick-a-color-markup {
+  display: inline-block !important;
+  margin: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  white-space: nowrap;
+  font-size: 15px;
+  line-height: 1.42857143;
+}
+@media (max-width: 768px) {
+  .colorpicker-container .pick-a-color-markup .color-menu.no-hex {
+    margin-bottom: 50px;
+    margin-left: -150px;
+  }
+}
+.colorpicker-container .pick-a-color-markup .input-group-btn .color-dropdown.no-hex {
+  padding: 16px 32px;
+  width: 85px;
+  height: 59px;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  margin-left: 0;
+  display: inline-block;
+}
+.colorpicker-container .pick-a-color-markup .input-group-btn .color-dropdown.no-hex .glyphicon {
+  left: -46px;
+  top: -27px;
+}
+.colorpicker-container .pick-a-color-markup .input-group-btn .color-dropdown.no-hex .caret {
+  display: none;
+}
+.colorpicker-container .pick-a-color-markup .input-group-btn .color-preview.current-color {
+  border-radius: 0;
+  width: 83px;
+  height: 10px;
+  margin: 31px 0 0 -32px;
+  border: none;
+}
+.colorpicker-container .pick-a-color-markup .input-group-btn {
+  display: inline;
+}
+.container-full {
+  margin: 0 auto;
+  width: 100%;
+}
+.navbar {
+  color: #fff;
+}
+#footer {
+  padding: 10px 0;
+  background-color: #eeeeee;
+  width: 100%;
+}
+@media (min-height: 490px) {
+  #footer {
+    position: absolute;
+    bottom: 0px;
+  }
+}
+#footer .desarrollado-taller p {
+  width: 100px;
+  height: 100%;
+  padding: 0;
+  float: left;
+  margin: 0 10px 0 0;
+}
+#footer .desarrollado-taller a {
+  margin: auto 0;
+  float: left;
+}

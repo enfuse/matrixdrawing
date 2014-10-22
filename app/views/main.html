@@ -1,0 +1,59 @@
+<!-- Modal -->
+<div class="navbar navbar-default  navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="./" class="navbar-brand"></a>
+
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+            <span class="h4 navbar-left">¿QUIERES PINTAR EN NUESTRA PANTALLA DE LEDS?</span>
+
+            <form class="navbar-form navbar-right form-inline" role="search">
+                <div class="form-group">
+                    <label class="hide" for="presets">Cargar un dibujo</label>
+                    <select id="presets" class="form-control" ng-model="preset" ng-change="seleccionPreset()">
+                        <option value="" checked="checked">Cargar dibujo</option>
+                        <option ng-repeat="nombre in listaNombres" value="{{nombre}}">{{nombre}}</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <input id="nombredibujo" placeholder="Guardar el dibujo " type="text" class="form-control"
+                           ng-model="nombreDibujo">
+                    <span class="input-group-btn">
+                        <button class="btn btn-sm btn-success" type="button" ng-click="guardarDibujo()"><span
+                                class="glyphicon glyphicon-floppy-save"></span></button>
+                      </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--div class="page-header">
+    <h1>¿Quieres pintar en nuestra pantalla de leds?</h1>
+</div-->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-1">
+            <div class="toolbar">
+                <button type="button" class="btn btn-default btn-lg" ng-click="borrar()" title="Limpia al pantalla">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </button>
+                <!--button type="button" class="btn btn-default btn-lg" ng-click="rellenar()"
+                        title="Rellena la pantalla con el color actual">
+                    <span class="glyphicon glyphicon-certificate"></span>
+                </button-->
+                <div class="colorpicker-container">
+                    <input ng-model="elcolor" type="text" value="000" name="border-color" class="pick-a-color form-control">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-11">
+            <canvas id="canvas" width="{{canvasWidth}}" height="{{canvasHeight}}" drawing></canvas>
+        </div>
+    </div>
+</div>
