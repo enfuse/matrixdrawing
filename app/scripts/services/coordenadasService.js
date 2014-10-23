@@ -18,7 +18,7 @@ angular.module('matrixappCoordenas', [])
       },
       addCoordenada: function(coordenada, color){
         firebase.child(coordenada).set(color);
-      },     
+      },
       borrar: function(){
         firebase.remove();
       },

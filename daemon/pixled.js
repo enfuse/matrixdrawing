@@ -21,7 +21,9 @@ var serialport = require("serialport"),	// include the serialport library
 var pixelDataRef = new Firebase(config.live_url);
 var pixels = parseInt(config.rows * config.cols);
 var bufferSize = parseInt((pixels*3));
-var buffer = new Buffer[bufferSize];
+
+
+var buffer = new Buffer(bufferSize);
 
 // open the serial port. The portname comes from the command line:
 var serial = new SerialPort(config.serial_port, { 
@@ -30,13 +32,14 @@ var serial = new SerialPort(config.serial_port, {
 	// so that you can keep track of whether or not the serial port is open:
 	options: false,
 	// look for return and newline at the end of each data packet:
-	parser: serialport.parsers.readline("\r\n")
+	//parser: serialport.parsers.readline("\r\n")
 });
  
 // called when the serial port opens:
 serial.on('open', function() {
 	// set options.open so you can track the port statue:
 	serial.options.open = true;
+	clearPixels();
 	if(config.clog) console.log("-- Port open --");
 });
 
@@ -54,19 +57,27 @@ serial.on('error', function(error) {
 });
 
 // called when there's new incoming serial data:  
-/*
 serial.on('data', function (data) {
 	// for debugging, you should see this in Terminal:
     console.log('data: ', data);
 });
-*/
 
-setInterval(sendPixels, 50);
-var sendPixels = function(){
-	serial.write(buffer);
+
+var init = function (){
+	clearPixels();
+	timer = setInterval(sendPixels, 50);//1000ms/50 = 20fps
 }
 
-var clearPixels = function(){
+var sendPixels = function(){
+	var initDraw = new Buffer(1);
+	initDraw[0] = 1;
+	serial.write(initDraw);
+	serial.write(buffer);
+	//console.log(JSON.stringify(buffer));
+}
+//setTimeout(init, 2000); 
+
+var clearPixels = function(snapshot){
 	for(i=0;i<bufferSize;i++){
 		buffer[i]=0; // reset
 	}
@@ -74,17 +85,20 @@ var clearPixels = function(){
 
 var drawPixel = function(snapshot){
 	var coords = snapshot.name().split(":");
-	var pos = convertCoordsToPos(coords);
-	
+	var pos = convertCoordsToPos(coords) * 3;
+	var rgb = hexToRgb(snapshot.val());	
+	buffer[pos] = rgb.g;
+	buffer[pos + 1 ] = rgb.r;
+	buffer[pos + 2 ] = rgb.b;
 }
 
 var convertCoordsToPos = function(coords){
-	return parseInt((config.cols * coords[1]) + coords[0]);
+	return parseInt((config.cols * coords[1])) + parseInt(coords[0]);
 }
 
 pixelDataRef.on('child_added', drawPixel);
 pixelDataRef.on('child_changed', drawPixel);
-pixelDataRef.on('child_removed', clearPixel);
+pixelDataRef.on('child_removed', clearPixels);
 
 
 var _drawPixel = function(snapshot){
@@ -132,3 +146,5 @@ function hexToRgb(hex) {
         b: parseInt(result[3], 16)
     } : null;
 }
+
+setTimeout(init, 2000);
