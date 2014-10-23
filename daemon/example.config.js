@@ -11,9 +11,10 @@ module.exports = {
 	//Run as daemon
 	daemon : false,
 
-	clog : true,
+	//Show console info if true
+	verbose : true,
 	
 	//Serial port config
 	serial_port : "/dev/ttyUSB0",
-	baud_rate : '57600'
+	baud_rate : '1000000'
 };
