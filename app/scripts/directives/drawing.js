@@ -34,8 +34,6 @@ angular.module('matrixApp')
         //$parsedding around grid
         var p = 0;
 
-        drawGrid();
-
         element.bind('touchmove', function(event){
           event.preventDefault();
           drawGrid();
@@ -96,6 +94,7 @@ angular.module('matrixApp')
           var sx = (x0 < x1) ? 1 : -1, sy = (y0 < y1) ? 1 : -1, err = dx - dy;
           while (true) {
             //write the pixel into Firebase, or if we are drawing white, remove the pixel
+            console.log(scope.elcolor);
             var color =
             coordenadasService.addCoordenada(x0 + ':' + y0, scope.elcolor.replace('#',''));
             if (x0 === x1 && y0 === y1){
@@ -142,8 +141,8 @@ angular.module('matrixApp')
             canvas.moveTo(p, 0.5 + x + p);
             canvas.lineTo(bw + p, 0.5 + x + p);
           }
-
-          canvas.strokeStyle = 'ccc';
+          canvas.lineWidth='2';
+          canvas.strokeStyle = '#222';
           canvas.stroke();
         }
 
@@ -152,6 +151,7 @@ angular.module('matrixApp')
           var coords = snapshot.name().split(':');
           canvas.fillStyle = '#'+snapshot.val();
           canvas.fillRect(parseInt(coords[0]) * pixSize, parseInt(coords[1]) * pixSize, pixSize, pixSize);
+          //drawGrid();
         };
         
         var clearPixel = function(snapshot) {
@@ -159,6 +159,7 @@ angular.module('matrixApp')
           canvas.clearRect(parseInt(coords[0]) * pixSize, parseInt(coords[1]) * pixSize, pixSize, pixSize);
           drawGrid();
         };
+
       }
     }; //fin return
   });

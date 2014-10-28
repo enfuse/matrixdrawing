@@ -6,6 +6,7 @@ throw 'App not configured' ;
 }
 
 angular.module('matrixApp', [
+  'angularSpectrumColorpicker',
   'ngCookies',
   'ngResource',
   'ngSanitize',

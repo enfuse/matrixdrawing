@@ -12,9 +12,10 @@
     "angular-route": "1.2.6",
     "firebase": "*",
     "bootstrap": "3.2.0",
-    "bootswatch-dist": "3.2.0-yeti",
+    "bootswatch-dist": "3.2.0-darkly",
     "pick-a-color": "1.2.3",
-    "tinycolor": "1.0.0"
+    "tinycolor": "1.0.0",
+    "angular-spectrum-colorpicker": "1.2.1"
   },
   "devDependencies": {
     "angular-mocks": "1.2.6",

@@ -7,7 +7,7 @@ if (!fs.existsSync('./config.js')) {
   console.log("* Error * \nCopy example.config.js to config.js and build your own config.");
   process.exit();
 }
-var config = require('./config.js');
+var config = require('./../config.js');
 
 if (config.daemon)
   require('daemon')();
