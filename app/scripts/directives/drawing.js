@@ -6,8 +6,8 @@ angular.module('matrixApp')
       restrict: 'A',
       link: function(scope, element){
 
-        /*element.attr('width', (matrixdrawing.pixel_size * matrixdrawing.width)+1);
-        element.attr('height', (matrixdrawing.pixel_size * matrixdrawing.height)+1);*/
+        /*element.attr('width', (pixled.pixel_size * pixled.width)+1);
+        element.attr('height', (pixled.pixel_size * pixled.height)+1);*/
 
         coordenadasService.on('child_added',function(data){
           $timeout(function(){
@@ -28,9 +28,9 @@ angular.module('matrixApp')
         // variable that decides if something should be drawn on mousemove
         var drawing = false;
         // the last coordinates before the current move
-        var pixSize = matrixdrawing.pixel_size, lastPoint = null/*, mouseDown = 0*/;
-        var bw = matrixdrawing.pixel_size * matrixdrawing.width;
-        var bh = matrixdrawing.pixel_size * matrixdrawing.height;
+        var pixSize = pixled.pixel_size, lastPoint = null/*, mouseDown = 0*/;
+        var bw = pixled.pixel_size * pixled.width;
+        var bh = pixled.pixel_size * pixled.height;
         //$parsedding around grid
         var p = 0;
 
@@ -94,7 +94,7 @@ angular.module('matrixApp')
           var sx = (x0 < x1) ? 1 : -1, sy = (y0 < y1) ? 1 : -1, err = dx - dy;
           while (true) {
             //write the pixel into Firebase, or if we are drawing white, remove the pixel
-            console.log(scope.elcolor);
+
             var color =
             coordenadasService.addCoordenada(x0 + ':' + y0, scope.elcolor.replace('#',''));
             if (x0 === x1 && y0 === y1){
@@ -132,12 +132,12 @@ angular.module('matrixApp')
 
         //draw pixel boxes on canvas
         function drawGrid(){
-          for (var xx1 = 0; xx1 <= bw; xx1 += matrixdrawing.pixel_size) {
+          for (var xx1 = 0; xx1 <= bw; xx1 += pixled.pixel_size) {
             canvas.moveTo(0.5 + xx1 + p, p);
             canvas.lineTo(0.5 + xx1 + p, bh + p);
           }
 
-          for (var x = 0; x <= bh; x += matrixdrawing.pixel_size) {
+          for (var x = 0; x <= bh; x += pixled.pixel_size) {
             canvas.moveTo(p, 0.5 + x + p);
             canvas.lineTo(bw + p, 0.5 + x + p);
           }

@@ -1,16 +1,36 @@
 @import '../bower_components/bootstrap/less/variables.less';
 @import '../bower_components/bootstrap/less/mixins.less';
-@import 'matrix.less';
-
 @import 'tools.less';
 
-.container-full {
-  margin: 0 auto;
-  width: 100%;
+a:hover {
+  opacity: 0.7;
 }
 
-.navbar{
-  color: #fff;
+.center {
+  text-align: center;
+}
+
+ul.navbar-nav{
+  float: right;
+
+}
+.divider{
+    border-left: 1px solid #fff;
+    padding: 0 0;
+    position: relative;
+    top: 20px;
+  }
+canvas {
+  background-color: #000;
+}
+
+.toolbar {
+  position: absolute;
+  top: 90px;
+  left: 0;
+  .btn-group-vertical{
+    width: 50px;
+  }
 }
 
 #footer{

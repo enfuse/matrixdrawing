@@ -5,9 +5,9 @@ angular.module('matrixappCoordenas', [])
   .factory('coordenadasService', function ($q, $rootScope) {
     var deferred = $q.defer();
     var firebase = {};
-    firebase = new Firebase(matrixdrawing.live_url);
+    firebase = new Firebase(pixled.live_url);
     var presets = {};
-    presets = new Firebase(matrixdrawing.artworks_url);
+    presets = new Firebase(pixled.artworks_url);
     return {
       base: firebase,
       on: function (eventName, callback){

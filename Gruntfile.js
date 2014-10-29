@@ -68,7 +68,8 @@ module.exports = function (grunt) {
       dist: {
         options: {
           yuicompress: true,
-          compress: true
+          compress: true,
+          sourcemap: true
         },
         files: [{
             expand: true,

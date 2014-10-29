@@ -1,46 +1,3 @@
-.btn-toolbar .btn-group {
-  margin-top: 0.4em;
-}
-.btn-toolbar button:hover {
-  opacity: 0.7;
-}
-.center {
-  text-align: center;
-}
-.container-canvas {
-  /* This could be done in one single declaration. See the extended sample. */
-  margin-right: auto;
-  margin-left: auto;
-  width: 800px;
-}
-h1 {
-  font-family: 'Duru Sans', sans-serif;
-  color: #999999;
-  font-size: 38px;
-  text-transform: uppercase;
-  margin-bottom: 3px;
-  margin-top: 38px;
-}
-.center1 {
-  margin: 0 auto;
-}
-.container-pixel {
-  margin-top: 20px;
-}
-a:hover {
-  opacity: 0.7;
-}
-canvas {
-  background-color: #111;
-}
-.toolbar {
-  position: absolute;
-  top: 90px;
-  left: 0;
-}
-.toolbar .btn-group-vertical {
-  width: 50px;
-}
 .tools-wrapper,
 .options-wrapper,
 .palette-wrapper {
@@ -218,12 +175,31 @@ canvas {
   background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0, #ffffff), color-stop(0.45, #ffffff), color-stop(0.5, #ff0000), color-stop(0.55, #ffffff), color-stop(1, #ffffff));
   background-image: -moz-linear-gradient(left top, #ffffff 0%, #ffffff 45%, #ff0000 50%, #ffffff 55%, #ffffff 100%);
 }
-.container-full {
-  margin: 0 auto;
-  width: 100%;
+a:hover {
+  opacity: 0.7;
 }
-.navbar {
-  color: #fff;
+.center {
+  text-align: center;
+}
+ul.navbar-nav {
+  float: right;
+}
+.divider {
+  border-left: 1px solid #fff;
+  padding: 0 0;
+  position: relative;
+  top: 20px;
+}
+canvas {
+  background-color: #000;
+}
+.toolbar {
+  position: absolute;
+  top: 90px;
+  left: 0;
+}
+.toolbar .btn-group-vertical {
+  width: 50px;
 }
 #footer {
   padding: 10px 0;
