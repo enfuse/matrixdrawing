@@ -5,13 +5,13 @@
  */
 module.exports = {
 	//Stores live drawing data 
-	live_url : 'https://foo.firebaseio.com/live',   	
+	live_url : 'https://pixled.firebaseio.com/live',
   	rows : 16,
   	cols : 16,
+
 	//Run as daemon
 	daemon : false,
 
-	//Show console info if true
 	verbose : true,
 	
 	//Serial port config
