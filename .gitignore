@@ -7,3 +7,5 @@ dist/*
 .idea
 
 app/scripts/config.js
+
+firebase.json
