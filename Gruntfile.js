@@ -94,6 +94,15 @@ module.exports = function (grunt) {
         ]
       }
     },
+    //deploy to firebase
+    shell: {
+        options: {
+            stderr: false
+        },
+        target: {
+            command: 'firebase deploy'
+        }
+    },
     // The actual grunt server settings
     connect: {
       options: {
@@ -404,7 +413,8 @@ module.exports = function (grunt) {
     'uglify',
     'rev',
     'usemin',
-    'htmlmin'
+    'htmlmin',
+    'shell'
   ]);
 
   grunt.registerTask('default', [
