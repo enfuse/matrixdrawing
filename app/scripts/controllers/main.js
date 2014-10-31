@@ -39,4 +39,11 @@ angular.module('matrixApp')
     $scope.seleccionPreset = function(){
       coordenadasService.sustituirPreset($scope.preset);
     };
+
+    angular.element(document).ready(function () {
+        $('.toolbar').find('a').click(function(e){
+            e.preventDefault();
+        });
+    });
+
   });
