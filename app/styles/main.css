@@ -181,7 +181,10 @@ a:hover {
 .center {
   text-align: center;
 }
-ul.navbar-nav {
+.navbar {
+  border-radius: 0;
+}
+.navbar ul.navbar-nav {
   float: right;
 }
 .divider {
