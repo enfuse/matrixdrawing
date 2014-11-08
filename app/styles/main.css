@@ -209,12 +209,6 @@ canvas {
   background-color: #eeeeee;
   width: 100%;
 }
-@media (min-height: 490px) {
-  #footer {
-    position: absolute;
-    bottom: 0px;
-  }
-}
 #footer .desarrollado-taller p {
   width: 100px;
   height: 100%;

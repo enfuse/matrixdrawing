@@ -1,15 +1,12 @@
 /*global $:false */
 'use strict';
-angular.module('matrixApp')
+angular.module('pixledApp')
   .controller('MainCtrl', function ($scope, coordenadasService) {
     $scope.movida = '';
-    $scope.colors = ['fff','000','f00','0f0','00f','777','f8d','f05','f80','0f8','FFFF00','08f','408','8ff'];
     $scope.elcolor = '000';
     $scope.listaNombres = [];
     $scope.canvasWidth = (pixled.width * pixled.pixel_size) + 1;
     $scope.canvasHeight = (pixled.height * pixled.pixel_size) + 1;
-
-
     $scope.$on('$viewContentLoaded', function() {
         //
     })
@@ -43,6 +40,11 @@ angular.module('matrixApp')
     angular.element(document).ready(function () {
         $('.toolbar').find('a').click(function(e){
             e.preventDefault();
+        });
+        $('#modal-config').click(function(e){
+          e.preventDefault();
+          $('#myModal').modal();
+
         });
     });
 

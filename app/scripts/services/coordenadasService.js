@@ -1,7 +1,7 @@
 /*global Firebase */
 'use strict';
 
-angular.module('matrixappCoordenas', [])
+angular.module('pixledAppCoordenas', [])
   .factory('coordenadasService', function ($q, $rootScope) {
     var deferred = $q.defer();
     var firebase = {};

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('matrixApp')
+angular.module('pixledApp')
   .directive('plasma', function (coordenadasService, $interval) {
     return {
       restrict: 'A',

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('matrixApp')
+angular.module('pixledApp')
   .directive('drawing', function (coordenadasService, $timeout) {
     return {
       restrict: 'A',
@@ -11,12 +11,12 @@ angular.module('matrixApp')
 
         coordenadasService.on('child_added',function(data){
           $timeout(function(){
-            drawPixel(data);
+            drawPixelFromService(data);
           },0);
         });
         coordenadasService.on('child_changed',function(data){
           $timeout(function(){
-            drawPixel(data);
+            drawPixelFromService(data);
           },0);
         });
         coordenadasService.on('child_removed',function(data){
@@ -92,6 +92,8 @@ angular.module('matrixApp')
           var y0 = (lastPoint === null) ? y1 : lastPoint[1];
           var dx = Math.abs(x1 - x0), dy = Math.abs(y1 - y0);
           var sx = (x0 < x1) ? 1 : -1, sy = (y0 < y1) ? 1 : -1, err = dx - dy;
+
+          drawPixel(x0, y0, scope.elcolor);
           while (true) {
             //write the pixel into Firebase, or if we are drawing white, remove the pixel
 
@@ -147,18 +149,27 @@ angular.module('matrixApp')
         }
 
 
-        var drawPixel = function(snapshot) {
+        var drawPixelFromService = function(snapshot) {
           var coords = snapshot.name().split(':');
           canvas.fillStyle = '#'+snapshot.val();
           canvas.fillRect(parseInt(coords[0]) * pixSize, parseInt(coords[1]) * pixSize, pixSize, pixSize);
+          drawPixel(coords[0], coords[1], '#'+snapshot.val());
+
           //drawGrid();
         };
+        var drawPixel = function(x,y,color) {
+          canvas.fillStyle = color;
+          canvas.fillRect(parseInt(x) * pixSize, parseInt(y) * pixSize, pixSize, pixSize);
+          //drawGrid();
+        };
+
         
         var clearPixel = function(snapshot) {
           var coords = snapshot.name().split(':');
           canvas.clearRect(parseInt(coords[0]) * pixSize, parseInt(coords[1]) * pixSize, pixSize, pixSize);
           drawGrid();
         };
+
 
       }
     }; //fin return
