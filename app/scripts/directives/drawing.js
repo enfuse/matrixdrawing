@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('pixledApp')
-  .directive('drawing', function (coordenadasService, $timeout) {
+  .directive('drawing', function (
+    coordenadasService, $timeout) {
     return {
       restrict: 'A',
       link: function(scope, element){

@@ -3,121 +3,152 @@
 .palette-wrapper {
   float: left;
 }
+
 .tool-icon {
-  position: relative;
-  cursor: pointer;
+  position : relative;
+  cursor : pointer;
   width: 46px;
   height: 46px;
+
   background-color: #3a3a3a;
   background-repeat: no-repeat;
   background-position: 12px 12px;
   background-size: 24px 24px;
 }
+
 .tool-icon.selected {
   cursor: default;
   background-color: #444;
 }
+
 .tool-icon.selected:before {
-  content: "";
-  position: absolute;
-  height: 100%;
-  width: 100%;
+  content:"";
+  position : absolute;
+  height : 100%;
+  width : 100%;
   border: 3px solid gold;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
 }
+
 .tool-icon:hover {
   background-color: #444;
 }
+
 /*
  * Tool icons:
  */
 .tool-icon.tool-pen {
   background-image: url(../img/tools/pen.png);
 }
+
 .tool-icon.tool-vertical-mirror-pen {
   background-image: url(../img/tools/mirror.png);
   background-position: 0px 10px;
   background-size: 38px 27px;
 }
+
 .tool-icon.tool-paint-bucket {
   background-image: url(../img/tools/paintbucket.png);
 }
+
 .tool-icon.tool-garbage {
   background-image: url(../img/tools/garbage.png);
 }
+
 .tool-icon.tool-eraser {
   background-image: url(../img/tools/eraser.png);
 }
+
 .tool-icon.tool-stroke {
   background-image: url(../img/tools/stroke.png);
 }
+
 .tool-icon.tool-rectangle {
   background-image: url(../img/tools/rectangle.png);
   background-position: 12px 14px;
   background-size: 24px 20px;
 }
+
 .tool-icon.tool-circle {
   background-image: url(../img/tools/circle.png);
 }
+
 .tool-icon.tool-move {
   background-image: url(../img/tools/hand.png);
   background-size: 24px 24px;
 }
+
 .tool-icon.tool-rectangle-select {
   background-image: url(../img/tools/rectangle_selection.png);
   background-position: 12px 14px;
   background-size: 24px 20px;
 }
+
 .tool-icon.tool-shape-select {
   background-image: url(../img/tools/magicwand.png);
 }
+
 .tool-icon.tool-lighten {
   background-image: url(../img/tools/lighten.png);
   background-size: 30px 30px;
   background-position: 8px 8px;
 }
+
 .tool-icon.tool-colorpicker {
   background-image: url(../img/tools/eyedropper.png);
   background-size: 23px 23px;
 }
+
 /*
  * Tool cursors:
  */
+
 .tool-paint-bucket .drawing-canvas-container:hover {
   cursor: url(../img/icons/paint-bucket.png) 12 12, pointer;
 }
+
 .tool-vertical-mirror-pen .drawing-canvas-container:hover {
   cursor: url(../img/icons/vertical-mirror-pen.png) 5 15, pointer;
 }
+
 .tool-pen .drawing-canvas-container:hover,
 .tool-lighten .drawing-canvas-container:hover {
   cursor: url(../img/icons/pen.png) 0 15, pointer;
 }
+
 .tool-eraser .drawing-canvas-container:hover {
   cursor: url(../img/icons/eraser.png) 0 15, pointer;
 }
+
 .tool-stroke .drawing-canvas-container:hover {
   cursor: url(../img/icons/pen.png) 0 15, pointer;
 }
+
 .tool-rectangle .drawing-canvas-container:hover {
   cursor: url(../img/icons/rectangle.png) 0 15, pointer;
 }
+
 .tool-circle .drawing-canvas-container:hover {
   cursor: url(../img/icons/circle.png) 2 15, pointer;
 }
+
 .tool-move .drawing-canvas-container:hover {
   cursor: url(../img/icons/hand.png) 15 15, pointer;
 }
+
 .tool-rectangle-select .drawing-canvas-container:hover {
   cursor: crosshair;
 }
+
 .tool-shape-select .drawing-canvas-container:hover {
   cursor: url(../img/icons/wand.png) 15 15, pointer;
 }
+
 .tool-colorpicker .drawing-canvas-container:hover {
   cursor: url(../img/icons/dropper.png) 0 15, pointer;
 }
+
 .swap-colors-icon {
   background-image: url(../img/tools/swap-arrow-square-small-grey.png);
   position: relative;
@@ -126,23 +157,28 @@
   height: 18px;
   width: 18px;
   background-size: 18px;
-  opacity: 0.3;
-  cursor: pointer;
+  opacity : 0.3;
+  cursor : pointer;
 }
+
 .swap-colors-icon:hover {
-  opacity: 1;
+  opacity : 1;
 }
+
 .tool-color-picker {
-  position: relative;
+  position:relative;
 }
+
 .tool-color-picker:nth-child(1) {
-  z-index: 100;
+  z-index : 100;
 }
+
 .tool-color-picker:nth-child(2) {
-  z-index: 90;
+  z-index : 90;
   margin-top: 25px;
-  margin-left: -20px;
+  margin-left:-20px;
 }
+
 .tool-color-picker input {
   width: 16px;
   height: 16px;
@@ -150,73 +186,12 @@
   border: 1px solid black;
   background: white;
   cursor: pointer;
-  position: relative;
+  position : relative;
   top: 10px;
   margin-left: 2px;
 }
+
 .tool-color-picker .secondary-color-picker {
-  top: 18px;
+  top : 18px;
   margin-left: 0;
-}
-.palette-wrapper {
-  margin-top: 10px;
-  margin-left: 10px;
-}
-.palette-color[data-color=TRANSPARENT] {
-  position: relative;
-  top: 10px;
-  left: 10px;
-  background-color: white;
-  height: 16px;
-  width: 16px;
-  border: 2px solid #000;
-  background-size: 16px 16px;
-  background-position: 0 0;
-  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0, #ffffff), color-stop(0.45, #ffffff), color-stop(0.5, #ff0000), color-stop(0.55, #ffffff), color-stop(1, #ffffff));
-  background-image: -moz-linear-gradient(left top, #ffffff 0%, #ffffff 45%, #ff0000 50%, #ffffff 55%, #ffffff 100%);
-}
-a:hover {
-  opacity: 0.7;
-}
-.center {
-  text-align: center;
-}
-.navbar {
-  border-radius: 0;
-}
-.navbar ul.navbar-nav {
-  float: right;
-}
-.divider {
-  border-left: 1px solid #fff;
-  padding: 0 0;
-  position: relative;
-  top: 20px;
-}
-canvas {
-  background-color: #000;
-}
-.toolbar {
-  position: absolute;
-  top: 90px;
-  left: 0;
-}
-.toolbar .btn-group-vertical {
-  width: 50px;
-}
-#footer {
-  padding: 10px 0;
-  background-color: #eeeeee;
-  width: 100%;
-}
-#footer .desarrollado-taller p {
-  width: 100px;
-  height: 100%;
-  padding: 0;
-  float: left;
-  margin: 0 10px 0 0;
-}
-#footer .desarrollado-taller a {
-  margin: auto 0;
-  float: left;
 }

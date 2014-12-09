@@ -34,6 +34,7 @@ angular.module('pixledApp')
       });
     });
     $scope.seleccionPreset = function(){
+      $('#settings').modal('hide')
       coordenadasService.sustituirPreset($scope.preset);
     };
 
@@ -43,7 +44,7 @@ angular.module('pixledApp')
         });
         $('#modal-config').click(function(e){
           e.preventDefault();
-          $('#myModal').modal();
+          $('#settings').modal();
 
         });
     });

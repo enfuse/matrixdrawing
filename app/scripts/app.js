@@ -11,7 +11,10 @@ angular.module('pixledApp', [
   'ngResource',
   'ngSanitize',
   'pixledAppCoordenas',
-  'ngRoute'
+  'ngRoute',
+  'ngAnimate',
+  'ngTouch',
+  'ui.bootstrap'
 ])
 
   .config(function ($routeProvider) {
