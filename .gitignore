@@ -9,3 +9,6 @@ dist/*
 app/scripts/config.js
 
 firebase.json
+
+
+.divshot-cache
