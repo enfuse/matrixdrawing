@@ -3,10 +3,11 @@
 angular.module('pixledApp')
   .controller('MainCtrl', function ($scope, coordenadasService) {
     $scope.movida = '';
-    $scope.elcolor = '000';
+    $scope.elcolor = 'fff';
     $scope.listaNombres = [];
     $scope.canvasWidth = (pixled.width * pixled.pixel_size) + 1;
     $scope.canvasHeight = (pixled.height * pixled.pixel_size) + 1;
+
     $scope.$on('$viewContentLoaded', function() {
         //
     })

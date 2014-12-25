@@ -1,6 +1,6 @@
 {
-  "name": "pixled",
-  "version": "0.1.0",
+  "name": "Pixled",
+  "version": "0.0.0",
   "dependencies": {},
   "devDependencies": {
     "gulp": "~3.8.10",
@@ -36,12 +36,7 @@
     "http-proxy": "~1.7.0",
     "chalk": "~0.5.1",
     "protractor": "~1.4.0",
-    "uglify-save-license": "~0.4.1",
-
-    "gulp-rimraf": "^0.1",
-    "gulp-ruby-sass": "^0.4.3",
-    "gulp-ng-html2js": "~0.1.6",
-    "gulp-plumber": "^0.6.3"
+    "uglify-save-license": "~0.4.1"
   },
   "engines": {
     "node": ">=0.10.0"

@@ -1,4 +1,4 @@
-$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+$icon-font-path: "../../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 
 
 @import "browsehappy";
@@ -6,9 +6,6 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "settings";
 @import "palette";
 @import "toolbox";
-
-
-
 
 
 a:hover {
@@ -37,9 +34,6 @@ canvas {
 }
 
 .toolbar {
-  position: absolute;
-  top: 90px;
-  left: 0;
   .btn-group-vertical{
     width: 50px;
 
@@ -99,7 +93,7 @@ canvas {
 
 
 
-@import "../bower_components/bootswatch-scss/darkly/variables";
-@import "../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/variables";
-@import "../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap";
-@import "../bower_components/bootswatch-scss/darkly/bootswatch";
+@import "../../bower_components/bootswatch-scss/darkly/_variables";
+@import "../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/variables";
+@import "../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap";
+@import "../../bower_components/bootswatch-scss/darkly/_bootswatch";

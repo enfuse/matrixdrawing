@@ -6,16 +6,10 @@ var gulp = require('gulp');
 gulp.task('wiredep', function () {
   var wiredep = require('wiredep').stream;
 
-  gulp.src('app/styles/*.scss')
+  return gulp.src('app/index.html')
     .pipe(wiredep({
-        directory: 'app/bower_components'
-    }))
-    .pipe(gulp.dest('app/styles'));
-
-  gulp.src('app/*.html')
-    .pipe(wiredep({
-      directory: 'app/bower_components',
-      exclude: ['bootstrap-sass-official']
+      directory: 'bower_components',
+      exclude: [/bootstrap-sass-official/, /bootstrap.css/]
     }))
     .pipe(gulp.dest('app'));
 });

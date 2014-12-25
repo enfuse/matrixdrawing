@@ -2,33 +2,30 @@
 
 var gulp = require('gulp');
 
+var util = require('util');
+
 var browserSync = require('browser-sync');
-var httpProxy = require('http-proxy');
 
-/* This configuration allow you to configure browser sync to proxy your backend */
-var proxyTarget = 'http://server/context/'; // The location of your backend
-var proxyApiPrefix = 'api'; // The element in the URL which differentiate between API request and static file request
-
-var proxy = httpProxy.createProxyServer({
-  target: proxyTarget
-});
-
-function proxyMiddleware(req, res, next) {
-  if (req.url.indexOf(proxyApiPrefix) !== -1) {
-    proxy.web(req, res);
-  } else {
-    next();
-  }
-}
+var middleware = require('./proxy');
 
 function browserSyncInit(baseDir, files, browser) {
   browser = browser === undefined ? 'default' : browser;
 
+  var routes = null;
+  if(baseDir === 'app' || (util.isArray(baseDir) && baseDir.indexOf('app') !== -1)) {
+    routes = {
+      // Should be '/bower_components': '../bower_components'
+      // Waiting for https://github.com/shakyShane/browser-sync/issues/308
+      '/bower_components': 'bower_components'
+    };
+  }
+
   browserSync.instance = browserSync.init(files, {
-    startPath: '/index.html',
+    startPath: '/',
     server: {
       baseDir: baseDir,
-      middleware: proxyMiddleware
+      middleware: middleware,
+      routes: routes
     },
     browser: browser
   });
@@ -40,11 +37,11 @@ gulp.task('serve', ['watch'], function () {
     'app',
     '.tmp'
   ], [
+    '.tmp/{app,components}/**/*.css',
+    'app/assets/images/**/*',
     'app/*.html',
-    '.tmp/styles/**/*.css',
-    'app/scripts/**/*.js',
-    'app/partials/**/*.html',
-    'app/images/**/*'
+    'app/**/*.html',
+    'app/**/*.js'
   ]);
 });
 
