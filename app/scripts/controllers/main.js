@@ -9,8 +9,8 @@ angular.module('pixledApp')
     $scope.canvasHeight = (pixled.height * pixled.pixel_size) + 1;
 
     $scope.$on('$viewContentLoaded', function() {
-        //
-    })
+
+    });
 
     $scope.borrar = function(){
       coordenadasService.borrar();
@@ -46,8 +46,26 @@ angular.module('pixledApp')
         $('#modal-config').click(function(e){
           e.preventDefault();
           $('#settings').modal();
-
         });
+
+      var canvas = {};
+
+      function resizeCanvas(block){
+        var w = block.parent().width() * .8;
+        block.attr('width', w);
+        block.attr('height', w);
+      }
+
+        canvas = $('#canvas');
+        resizeCanvas(canvas);
+
+
+      $(window).resize(function() {
+        resizeCanvas(canvas);
+        console.log(canvas.length);
+      });
+
+
     });
 
   });

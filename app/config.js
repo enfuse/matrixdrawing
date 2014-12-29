@@ -5,4 +5,6 @@ if (!window.pixled) {
     pixled.width = 16;
     pixled.height = 16;
     pixled.pixel_size = 20; //in screen pixels
+
+
 }

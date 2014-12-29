@@ -29,9 +29,15 @@ a:hover {
     top: 20px;
   }
 
-canvas {
-  background-color: #000;
+.canvas-container{
+
+
+  canvas {
+   //width: 90%;
+    background-color: #000;
+  }
 }
+
 
 .toolbar {
   .btn-group-vertical{
