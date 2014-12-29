@@ -11,4 +11,4 @@ app/scripts/config.js
 firebase.json
 
 
-.divshot-cache
+.divshot-cache/*
