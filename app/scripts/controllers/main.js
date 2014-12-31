@@ -2,14 +2,11 @@
 'use strict';
 angular.module('pixledApp')
   .controller('MainCtrl', function ($scope, coordenadasService) {
-    
     $scope.movida = '';
     $scope.elcolor = 'fff';
     $scope.listaNombres = [];
     $scope.canvasWidth = 1;
     $scope.canvasHeight = 1;
-
-
 
 //    $scope.$on('$viewContentLoaded', $scope.init);
 
@@ -36,7 +33,7 @@ angular.module('pixledApp')
       });
     });
     $scope.seleccionPreset = function(){
-      $('#settings').modal('hide')
+      $('#settings').modal('hide');
       coordenadasService.setPreset($scope.preset);
     };
 
@@ -55,10 +52,6 @@ angular.module('pixledApp')
        */
       function resizeCanvas(canvas){
         if(canvas.length == 0) return;
-        // browser viewport size
-        //var w = block.parent().width() * .8;
-        //var h = block.parent().width() * .8;
-
         // stage dimensions
         var canvasWidth = canvas.width(), // your stage width
         canvasHeight = canvas.height(), // your stage height
@@ -79,7 +72,7 @@ angular.module('pixledApp')
         var context = canvas[0].getContext("2d");
         context.scale(scale.x -.04, scale.y-.04);
         //canvas.css('width', canvas.parent().width());
-        //canvas.css('width', "100%");
+      canvas.css('max-width', $(window).height() - 130);
       }
 
       resizeCanvas($('#canvasdraw'));

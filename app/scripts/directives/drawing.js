@@ -146,7 +146,7 @@ angular.module('pixledApp')
             canvas.lineTo(bw + p, 0.5 + x + p);
           }
           canvas.lineWidth='1';
-          canvas.strokeStyle = '#000';
+          canvas.strokeStyle = '#111';
           canvas.stroke();
         }
 
@@ -164,11 +164,12 @@ angular.module('pixledApp')
           //canvas.fillRect(parseInt(x) * pixSize, parseInt(y) * pixSize, pixSize, pixSize);
 
           var imgData=canvas.createImageData(20,20);
+          var rgb = hexToRgb(color);
           for (var i=0;i<imgData.data.length;i+=4)
             {
-            imgData.data[i+0]=255;
-            imgData.data[i+1]=0;
-            imgData.data[i+2]=0;
+            imgData.data[i+0]= rgb.r;
+            imgData.data[i+1]= rgb.g;
+            imgData.data[i+2]= rgb.b;
             imgData.data[i+3]=255;
             }
           canvas.putImageData(imgData,parseInt(x) * 20 ,parseInt(y)*20);
@@ -182,7 +183,20 @@ angular.module('pixledApp')
           drawGrid();
         };
 
+        var hexToRgb = function(hex) {
+          // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+          var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+          hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+            return r + r + g + g + b + b;
+          });
 
+          var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+          return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+          } : null;
+        }
       }
     }; //fin return
   });
