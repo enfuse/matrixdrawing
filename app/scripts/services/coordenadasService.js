@@ -28,14 +28,14 @@ angular.module('pixledAppCoordenas', [])
           hijoPreset.set(snap.val());
         });
       },
-      sustituirPreset: function(nombre){
+      setPreset: function(nombre){
         //firebase.remove(); 
         var hijoPreset = presets.child(nombre);
         hijoPreset.once('value', function(snap) {
           firebase.set(snap.val());
         });
       },
-      pillarPresets: function(){
+      getPresets: function(){
         presets.once('value', function(todosSnap) {
           $rootScope.$apply(function(){
             deferred.resolve(todosSnap);

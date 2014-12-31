@@ -6,10 +6,6 @@ angular.module('pixledApp')
     return {
       restrict: 'A',
       link: function(scope, element){
-
-        /*element.attr('width', (pixled.pixel_size * pixled.width)+1);
-        element.attr('height', (pixled.pixel_size * pixled.height)+1);*/
-
         coordenadasService.on('child_added',function(data){
           $timeout(function(){
             drawPixelFromService(data);
@@ -25,13 +21,15 @@ angular.module('pixledApp')
             clearPixel(data);
           },0);
         });
-        var canvas = element[0].getContext('2d');        
+        var canvas = element[0].getContext('2d');
         // variable that decides if something should be drawn on mousemove
         var drawing = false;
         // the last coordinates before the current move
-        var pixSize = pixled.pixel_size, lastPoint = null/*, mouseDown = 0*/;
-        var bw = pixled.pixel_size * pixled.width;
-        var bh = pixled.pixel_size * pixled.height;
+        var pixSize = 20,
+        bw = element.width(),
+        bh = element.height(),
+        lastPoint = null;
+
         //$parsedding around grid
         var p = 0;
 
@@ -85,10 +83,12 @@ angular.module('pixledApp')
         });
         
         var draw = function(pageX, pageY) {
-          var canvas = angular.element('#canvas');
+          var canvas = angular.element('#canvasdraw');
           var offset = offsetAngular(canvas);
-          var x1 = Math.floor(((pageX - offset.left) - 1)  / pixSize);
-          var y1 = Math.floor(((pageY - offset.top) - 1) / pixSize);
+          var cw = canvas.width() / pixled.pixels_x;
+          var ch = canvas.height() / pixled.pixels_y;
+          var x1 = Math.floor(((pageX - offset.left) - 1)  / cw);
+          var y1 = Math.floor(((pageY - offset.top) - 1) / ch);
           var x0 = (lastPoint === null) ? x1 : lastPoint[0];
           var y0 = (lastPoint === null) ? y1 : lastPoint[1];
           var dx = Math.abs(x1 - x0), dy = Math.abs(y1 - y0);
@@ -121,7 +121,8 @@ angular.module('pixledApp')
         //   element[0].width = element[0].width;
         // }
         function offsetAngular(elm) {
-          try {return elm.offset();} catch(e) {}
+          try {
+            return elm.offset();} catch(e) {}
           var rawDom = elm[0];
           var _x = 0;
           var _y = 0;
@@ -130,6 +131,7 @@ angular.module('pixledApp')
           var scrollY = window.pageYOffset || body.scrollTop;
           _x = rawDom.getBoundingClientRect().left + scrollX;
           _y = rawDom.getBoundingClientRect().top + scrollY;
+          console.log({ left: _x, top:_y });
           return { left: _x, top:_y };
         }
 
@@ -139,13 +141,12 @@ angular.module('pixledApp')
             canvas.moveTo(0.5 + xx1 + p, p);
             canvas.lineTo(0.5 + xx1 + p, bh + p);
           }
-
           for (var x = 0; x <= bh; x += pixled.pixel_size) {
             canvas.moveTo(p, 0.5 + x + p);
             canvas.lineTo(bw + p, 0.5 + x + p);
           }
-          canvas.lineWidth='2';
-          canvas.strokeStyle = '#222';
+          canvas.lineWidth='1';
+          canvas.strokeStyle = '#000';
           canvas.stroke();
         }
 
@@ -159,9 +160,19 @@ angular.module('pixledApp')
           //drawGrid();
         };
         var drawPixel = function(x,y,color) {
-          canvas.fillStyle = color;
-          canvas.fillRect(parseInt(x) * pixSize, parseInt(y) * pixSize, pixSize, pixSize);
-          //drawGrid();
+          //canvas.fillStyle = color;
+          //canvas.fillRect(parseInt(x) * pixSize, parseInt(y) * pixSize, pixSize, pixSize);
+
+          var imgData=canvas.createImageData(20,20);
+          for (var i=0;i<imgData.data.length;i+=4)
+            {
+            imgData.data[i+0]=255;
+            imgData.data[i+1]=0;
+            imgData.data[i+2]=0;
+            imgData.data[i+3]=255;
+            }
+          canvas.putImageData(imgData,parseInt(x) * 20 ,parseInt(y)*20);
+          drawGrid();
         };
 
         

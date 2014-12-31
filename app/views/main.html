@@ -61,22 +61,24 @@
 <div class="workarea">
   <div class="container">
     <div class="row">
-      <div class="canvas-container">
-        <canvas id="canvas" width="90%" height="300px" drawing></canvas>
+      <div class="col-sm-12">
+        <div class="canvas-container">
+
+          <canvas id="canvasdraw" width="321px" height="321px" drawing></canvas>
+        </div>
       </div>
     </div>
     <div class="row">
     <div class="toolbar">
-      <div class="">
         <!--<a href="#" class="btn btn-default tool-icon tool-pen"></a>
         <a href="#" class="btn btn-default tool-icon tool-eraser"></a>
         <a href="#" class="btn btn-default tool-icon tool-paint-bucket"></a>-->
         <a href="#" ng-click="borrar()" title="Limpia al pantalla"
            class="btn btn-default tool-icon tool-garbage"></a>
         <spectrum-colorpicker ng-model="elcolor" format="hex3"
-                              options="{showInput: true, showButtons:false, replacerClassName: 'spectrum btn btn-default tool-icon', preferredFormat: 'hex3', localStorageKey: true, showPalette: true}"
-          ></spectrum-colorpicker>
-      </div>
+                              options="{showInput: true, showButtons:false, replacerClassName: 'spectrum btn btn-default tool-icon', preferredFormat: 'hex3', localStorageKey: true, showPalette: true}">
+        </spectrum-colorpicker>
+
 
       <!--button type="button" class="btn btn-default btn-lg" ng-click="rellenar()"
               title="Rellena la pantalla con el color actual">
