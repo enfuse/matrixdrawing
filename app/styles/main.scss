@@ -29,12 +29,16 @@ a:hover {
 }
 
 .canvas-container {
-  canvas {
+  position: relative;
+  canvas{
     width: 100%;
     max-width: 600px;
     object-fit: fill;
-    background-color: #000;
+    &#canvasdraw {
+      background-color: #000;
+    }
   }
+
 }
 
 #footer {

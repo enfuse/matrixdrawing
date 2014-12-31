@@ -17,9 +17,12 @@ angular.module('pixledApp')
           },0);
         });
         coordenadasService.on('child_removed',function(data){
-          $timeout(function(){
-            clearPixel(data);
-          },0);
+          reset();
+          /*$timeout(function(){
+            //clearPixel(data);
+
+
+          },0);*/
         });
         var canvas = element[0].getContext('2d');
         // variable that decides if something should be drawn on mousemove
@@ -28,6 +31,7 @@ angular.module('pixledApp')
         var pixSize = 20,
         bw = element.width(),
         bh = element.height(),
+        mouseDown = false,
         lastPoint = null;
 
         //$parsedding around grid
@@ -52,9 +56,11 @@ angular.module('pixledApp')
           drawing = false;
         });
 
-        element.bind('mousedown', function(){
+        element.on('mousedown', function(){
           drawGrid();
           drawing = true;
+          mouseDown = true;
+          draw(event.pageX, event.pageY);
         });
 
         element.bind('mousemove', function(event){
@@ -71,7 +77,14 @@ angular.module('pixledApp')
             drawing = false;
           }
         });
+        element.bind('mouseenter', function(event){
 
+          if(mouseDown){
+            drawGrid();
+            lastPoint = null;
+            drawing = false;
+          }
+        });
         element.bind('mouseup', function(event){
           // stop drawing
           drawGrid();
@@ -79,6 +92,7 @@ angular.module('pixledApp')
             draw(event.pageX, event.pageY)
           }        
           lastPoint = null;
+          mouseDown = false;
           drawing = false;
         });
         
@@ -117,9 +131,9 @@ angular.module('pixledApp')
         };
 
         // canvas reset
-        // function reset(){
-        //   element[0].width = element[0].width;
-        // }
+        function reset(){
+           element[0].width = element[0].width;
+        }
         function offsetAngular(elm) {
           try {
             return elm.offset();} catch(e) {}
