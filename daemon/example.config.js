@@ -15,7 +15,7 @@ module.exports = {
 	daemon : false,
 
 	//Show console info if true
-	verbose : true,
+	clog : true,
 	
 	//Serial port config
 	serial_port : "/dev/ttyUSB0",
