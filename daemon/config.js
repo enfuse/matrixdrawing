@@ -9,6 +9,8 @@ module.exports = {
   	rows : 16,
   	cols : 16,
 
+  //Brightness temporal (need a potentiometer)
+  br : 0.4,
 	//Run as daemon
 	daemon : false,
 
