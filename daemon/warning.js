@@ -44,15 +44,6 @@ serial.on('open', function () {
   }
 });
 
-// called when the serial port closes:
-serial.on('close', function () {
-  // set options.open so you can track the port statue:
-  serial.options.open = false;
-  if (config.clog) {
-    console.log("-- Port closed --");
-  }
-});
-
 // called when there's an error with the serial port:
 serial.on('error', function (error) {
   serial.close();
@@ -61,19 +52,19 @@ serial.on('error', function (error) {
   }
 });
 
-// called when there's new incoming serial data:  
-serial.on('data', function (data) {
-  // for debugging, you should see this in Terminal:
-  console.log('data: ', data);
-});
-
 
 var init = function () {
-
+  for(var i=0; i<=bufferSize; i++){
+    buffer[i]=0;
+  }
+  console.log("Buffer size:" + bufferSize);
   for(var key in pic) {
+console.log("Draw: " + key + " with: " + pic[key]);
     drawPixel(key, pic[key]);
   }
   timer = setInterval(sendPixels, 50);//1000ms/50 = 20fps
+  //Just one Frame
+//  sendPixels();
 }
 
 var sendPixels = function () {
@@ -81,26 +72,25 @@ var sendPixels = function () {
   initDraw[0] = 1;
   serial.write(initDraw);
   serial.write(buffer);
-  //console.log(JSON.stringify(buffer));
-}
-
-var clearPixels = function (snapshot) {
-  for (i = 0; i < bufferSize; i++) {
-    buffer[i] = 0; // reset
-  }
+  console.log(JSON.stringify(buffer));
 }
 
 var drawPixel = function (key, val) {
-  var coords = key().split(":");
+  var coords = key.split(":");
   var pos = coordsToPos(coords) * 3;
   var rgb = hexToRgb(val);
+console.log(coords + " --> " + pos);
   buffer[pos] = rgb.g * config.br;
   buffer[pos + 1] = rgb.r * config.br;
   buffer[pos + 2] = rgb.b * config.br;
 }
 
 var coordsToPos = function (coords) {
-  return parseInt((config.cols * coords[1])) + parseInt(coords[0]);
+console.log(config.cols);
+console.log(parseInt((config.cols * parseInt(coords[1]))));
+console.log(parseInt(coords[0]));
+console.log();
+  return parseInt(parseInt(config.cols) * parseInt(coords[1])) + parseInt(coords[0]);
 }
 
 var hexToRgb = function (hex) {
