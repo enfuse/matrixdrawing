@@ -1,10 +1,10 @@
 {
-  "name": "Matrix_firebase",
-  "version": "0.0.2",
+  "name": "Pixled_daemon",
+  "version": "0.1.0",
   "description" : "",
   "keywords": "firebase, node-serialport",
   "author": {
-  	"name":"Karlos, Aitor, Mael, Oier"
+  	"name":"Karlos, Aitor, Mael, Oier, Juanjo"
    },
   "dependencies": {
     "serialport": "*",
