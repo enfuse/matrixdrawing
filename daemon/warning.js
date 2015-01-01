@@ -9,20 +9,18 @@ if (!fs.existsSync('./config.js')) {
   process.exit();
 }
 var config = require('./config.js');
+var pic = require('./tools/warning.json');
 
 //Check if this should work as a daemon
 if (config.daemon) {
   require('daemon')();
 }
 
-var Firebase = require('firebase');
-
 var serialport = require("serialport"),	// include the serialport library
   SerialPort = serialport.SerialPort,	// make a local instance of it
   portName = process.argv[2],				// get the serial port name from the command line
   ledState = false;
 
-var pixelDataRef = new Firebase(config.live_url);
 var pixels = parseInt(config.rows * config.cols);
 var bufferSize = parseInt((pixels * 3));
 var buffer = new Buffer(bufferSize);
@@ -71,6 +69,10 @@ serial.on('data', function (data) {
 
 
 var init = function () {
+
+  for(var key in pic) {
+    drawPixel(key, pic[key]);
+  }
   timer = setInterval(sendPixels, 50);//1000ms/50 = 20fps
 }
 
@@ -88,10 +90,10 @@ var clearPixels = function (snapshot) {
   }
 }
 
-var drawPixel = function (snapshot) {
-  var coords = snapshot.key().split(":");
+var drawPixel = function (key, val) {
+  var coords = key().split(":");
   var pos = coordsToPos(coords) * 3;
-  var rgb = hexToRgb(snapshot.val());
+  var rgb = hexToRgb(val);
   buffer[pos] = rgb.g * config.br;
   buffer[pos + 1] = rgb.r * config.br;
   buffer[pos + 2] = rgb.b * config.br;
@@ -116,8 +118,6 @@ var hexToRgb = function (hex) {
   } : null;
 }
 
-pixelDataRef.on('child_added', drawPixel);
-pixelDataRef.on('child_changed', drawPixel);
-pixelDataRef.on('child_removed', clearPixels);
+
 
 setTimeout(init, 500);
