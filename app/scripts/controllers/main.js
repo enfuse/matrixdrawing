@@ -70,6 +70,7 @@ angular.module('pixledApp')
             scale = scale.y + ', ' + scale.y;
         }
         var context = canvas[0].getContext("2d");
+        context.imageSmoothingEnabled = false;
         context.scale(scale.x -.04, scale.y-.04);
         //canvas.css('width', canvas.parent().width());
       canvas.css('max-width', $(window).height() - 130);

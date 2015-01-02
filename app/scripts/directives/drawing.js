@@ -1,77 +1,82 @@
 'use strict';
 
 angular.module('pixledApp')
-  .directive('drawing', function (
-    coordenadasService, $timeout) {
+  .directive('drawing', function (coordenadasService, $timeout) {
     return {
       restrict: 'A',
       link: function(scope, element){
         coordenadasService.on('child_added',function(data){
           $timeout(function(){
             drawPixelFromService(data);
-          },0);
+          },0,false);
         });
+
         coordenadasService.on('child_changed',function(data){
           $timeout(function(){
             drawPixelFromService(data);
-          },0);
+          },0,false);
         });
+
         coordenadasService.on('child_removed',function(data){
-          reset();
-          /*$timeout(function(){
+          $timeout(function(){
             //clearPixel(data);
-
-
-          },0);*/
+            reset();
+          },100,false);
         });
+
         var canvas = element[0].getContext('2d');
         // variable that decides if something should be drawn on mousemove
         var drawing = false;
         // the last coordinates before the current move
-        var pixSize = 20,
-        bw = element.width(),
+        //var pixSize = pixled.pixel_size,
+
+        var bw = element.width(),
         bh = element.height(),
         mouseDown = false,
-        lastPoint = null;
+        lastPoint = null,
+        buffer = [pixled.pixels_x];
+
+        for (var i=0; i <pixled.pixels_x; i++)
+          buffer[i]=new Array(pixled.pixels_y)
 
         //$parsedding around grid
         var p = 0;
 
         element.bind('touchmove', function(event){
           event.preventDefault();
-          drawGrid();
+          //drawGrid();
           drawing = true;
           draw(event.originalEvent.touches[0].pageX, event.originalEvent.touches[0].pageY);
         });
 
         element.bind('touchend', function(event){
-          drawGrid();
+          //drawGrid();
           lastPoint = null;
           drawing = false;
         });
 
         element.bind('touchcancel', function(event){
-          drawGrid();
+          //drawGrid();
           lastPoint = null;
           drawing = false;
         });
 
         element.on('mousedown', function(){
-          drawGrid();
+          //drawGrid();
           drawing = true;
           mouseDown = true;
           draw(event.pageX, event.pageY);
         });
 
         element.bind('mousemove', function(event){
-          drawGrid();
+          //drawGrid();
           if(drawing){
             draw(event.pageX, event.pageY)
           }
         });
 
         element.bind('mouseleave', function(event){
-          drawGrid();
+          //drawGrid();
           if(drawing){
             lastPoint = null;
             drawing = false;
@@ -80,14 +85,14 @@ angular.module('pixledApp')
         element.bind('mouseenter', function(event){
 
           if(mouseDown){
-            drawGrid();
+            //drawGrid();
             lastPoint = null;
             drawing = false;
           }
         });
         element.bind('mouseup', function(event){
           // stop drawing
-          drawGrid();
+          //drawGrid();
           if(drawing){
             draw(event.pageX, event.pageY)
           }        
@@ -103,6 +108,10 @@ angular.module('pixledApp')
           var ch = canvas.height() / pixled.pixels_y;
           var x1 = Math.floor(((pageX - offset.left) - 1)  / cw);
           var y1 = Math.floor(((pageY - offset.top) - 1) / ch);
+
+          //Stop if same pixel
+          if(!(lastPoint === null) && (lastPoint[0] == x1 &&  lastPoint[1] == y1)) return;
+
           var x0 = (lastPoint === null) ? x1 : lastPoint[0];
           var y0 = (lastPoint === null) ? y1 : lastPoint[1];
           var dx = Math.abs(x1 - x0), dy = Math.abs(y1 - y0);
@@ -112,8 +121,7 @@ angular.module('pixledApp')
           while (true) {
             //write the pixel into Firebase, or if we are drawing white, remove the pixel
 
-            var color =
-            coordenadasService.addCoordenada(x0 + ':' + y0, scope.elcolor.replace('#',''));
+            var color = coordenadasService.addCoordenada(x0 + ':' + y0, scope.elcolor.replace('#',''));
             if (x0 === x1 && y0 === y1){
               break;
             }
@@ -134,6 +142,7 @@ angular.module('pixledApp')
         function reset(){
            element[0].width = element[0].width;
         }
+
         function offsetAngular(elm) {
           try {
             return elm.offset();} catch(e) {}
@@ -145,7 +154,6 @@ angular.module('pixledApp')
           var scrollY = window.pageYOffset || body.scrollTop;
           _x = rawDom.getBoundingClientRect().left + scrollX;
           _y = rawDom.getBoundingClientRect().top + scrollY;
-          console.log({ left: _x, top:_y });
           return { left: _x, top:_y };
         }
 
@@ -167,35 +175,30 @@ angular.module('pixledApp')
 
         var drawPixelFromService = function(snapshot) {
           var coords = snapshot.name().split(':');
-          canvas.fillStyle = '#'+snapshot.val();
-          canvas.fillRect(parseInt(coords[0]) * pixSize, parseInt(coords[1]) * pixSize, pixSize, pixSize);
           drawPixel(coords[0], coords[1], '#'+snapshot.val());
-
-          //drawGrid();
         };
-        var drawPixel = function(x,y,color) {
-          //canvas.fillStyle = color;
-          //canvas.fillRect(parseInt(x) * pixSize, parseInt(y) * pixSize, pixSize, pixSize);
 
+        var drawPixel = function(x,y,color) {
           var imgData=canvas.createImageData(20,20);
           var rgb = hexToRgb(color);
-          for (var i=0;i<imgData.data.length;i+=4)
-            {
+          if(!rgb) return; //if not correct color
+          for (var i=0;i<imgData.data.length;i+=4){
             imgData.data[i+0]= rgb.r;
             imgData.data[i+1]= rgb.g;
             imgData.data[i+2]= rgb.b;
             imgData.data[i+3]=255;
-            }
+          }
           canvas.putImageData(imgData,parseInt(x) * 20 ,parseInt(y)*20);
+          buffer[x][y] = color;
           drawGrid();
         };
 
         
-        var clearPixel = function(snapshot) {
+        /*var clearPixel = function(snapshot) {
           var coords = snapshot.name().split(':');
           canvas.clearRect(parseInt(coords[0]) * pixSize, parseInt(coords[1]) * pixSize, pixSize, pixSize);
-          drawGrid();
-        };
+          //drawGrid();
+        };*/
 
         var hexToRgb = function(hex) {
           // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")

@@ -5,7 +5,6 @@
 
 var cadena = require('./artworks.json');
 
-
  //Check if config file exists
 var fs = require('fs');
 
