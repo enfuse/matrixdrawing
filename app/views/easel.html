@@ -1,0 +1,85 @@
+<!-- Modal -->
+<div class="navbar navbar-default navbar-inverse">
+  <div class="container">
+    <div class="navbar-header">
+      <span class="navbar-brand">Pixled</span>
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse" id="navbar-main">
+      <ul class="nav navbar-nav">
+        <li><a href="http://github.com/enfuse" target="_blank">Enfuse</a></li>
+        <li><a href="http://labs.interzonas.info" target="_blank">Interzonas</a></li>
+        <li><a id="modal-config" href="#"><span class="glyphicon glyphicon-wrench"></span></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="settings" tabindex="-1" role="dialog" aria-labelledby="Configuración" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span
+          aria-hidden="true">&times;</span><span
+          class="sr-only">Close</span></button>
+        <h4 class="h5" id="modalLabel">Pixled settings</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6 first">
+            <div class="form-group">
+            <label class="hide" for="presets">Cargar un dibujo</label>
+            <select id="presets" class="form-control" ng-model="preset" ng-change="seleccionPreset()">
+              <option value="" checked="checked">Cargar dibujo</option>
+              <option ng-repeat="nombre in listaNombres" value="{{nombre}}">{{nombre}}</option>
+            </select>
+              <p class="help-block">Selecciona el dibujo que quieres cargar</p>
+            </div>
+          </div>
+          <div class="col-md-6 ">
+            <form class="form" role="search">
+              <div class="form-group">
+                <input id="nombredibujo" placeholder="Guardar el dibujo " type="text" class="form-control"
+                     ng-model="nombreDibujo">
+              </div>
+              <button class="btn btn-success" type="button" ng-click="guardarDibujo()"><span
+                class="glyphicon glyphicon-floppy-save"></span> Guardar
+              </button>
+            </form>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container workarea">EASEL!!!!!!!!!!!
+  <div class="toolbar">
+    <div class="btn-group-vertical">
+      <!--<a href="#" class="btn btn-default tool-icon tool-pen"></a>
+      <a href="#" class="btn btn-default tool-icon tool-eraser"></a>
+      <a href="#" class="btn btn-default tool-icon tool-paint-bucket"></a>-->
+      <a href="#" ng-click="borrar()" title="Limpia al pantalla"
+         class="btn btn-default tool-icon tool-garbage"></a>
+      <spectrum-colorpicker ng-model="elcolor" format="hex3"
+                            options="{showInput: true, showButtons:false, replacerClassName: 'spectrum btn btn-default tool-icon', preferredFormat: 'hex3', localStorageKey: true, showPalette: true}"
+        ></spectrum-colorpicker>
+    </div>
+
+    <!--button type="button" class="btn btn-default btn-lg" ng-click="rellenar()"
+            title="Rellena la pantalla con el color actual">
+        <span class="glyphicon glyphicon-certificate"></span>
+    </button-->
+    <!--div class="colorpicker-container">
+        <input ng-model="elcolor" type="text" value="000" name="border-color" class="pick-a-color form-control">
+    </div-->
+  </div>
+  <div class="row">
+    <canvas id="canvas" width="{{canvasWidth}}" height="{{canvasHeight}}" drawing></canvas>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+{
+  "name": "Pixled_daemon",
+  "version": "0.1.0",
+  "description" : "",
+  "keywords": "firebase, node-serialport",
+  "author": {
+  	"name":"Karlos, Aitor, Mael, Oier, Juanjo"
+   },
+  "dependencies": {
+    "serialport": "*",
+    "firebase": "*",
+    "daemon": "*"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.3.x"
+  }
+}

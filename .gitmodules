@@ -1,0 +1,9 @@
+[submodule "arduino-pj"]
+	path = arduino-pj
+	url = git@github.com:enfuse/matrixdrawer-arduino.git
+[submodule "daemon"]
+	path = daemon
+	url = git@github.com:enfuse/matrixdrawer-daemon.git
+[submodule "app"]
+	path = app
+	url = git@github.com:enfuse/matrixdrawer-angular.git

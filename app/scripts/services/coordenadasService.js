@@ -1,13 +1,13 @@
 /*global Firebase */
 'use strict';
 
-angular.module('matrixappCoordenas', [])
+angular.module('pixledAppCoordenas', [])
   .factory('coordenadasService', function ($q, $rootScope) {
     var deferred = $q.defer();
     var firebase = {};
-    firebase = new Firebase('https://d3interzonas.firebaseio.com/default');
+    firebase = new Firebase(pixled.live_url);
     var presets = {};
-        presets = new Firebase('https://d3interzonas.firebaseio.com/presets');
+    presets = new Firebase(pixled.artworks_url);
     return {
       base: firebase,
       on: function (eventName, callback){
@@ -28,18 +28,18 @@ angular.module('matrixappCoordenas', [])
           hijoPreset.set(snap.val());
         });
       },
-      sustituirPreset: function(nombre){
-        firebase.remove();
+      setPreset: function(nombre){
+        //firebase.remove(); 
         var hijoPreset = presets.child(nombre);
         hijoPreset.once('value', function(snap) {
           firebase.set(snap.val());
         });
       },
-      pillarPresets: function(){
+      getPresets: function(){
         presets.once('value', function(todosSnap) {
           $rootScope.$apply(function(){
             deferred.resolve(todosSnap);
-          })
+          });
         });
         return deferred.promise;
       }

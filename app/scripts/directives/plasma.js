@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('matrixApp')
+angular.module('pixledApp')
   .directive('plasma', function (coordenadasService, $interval) {
     return {
       restrict: 'A',
@@ -15,8 +15,8 @@ angular.module('matrixApp')
 
         function drawCircle(x0, y0, r, color) {
           var  f = 1 - r;
-          var ddF_x = 1;
-          var ddF_y = -2 * r;
+          var ddFx = 1;
+          var ddFy = -2 * r;
           var x = 0;
           var y = r;
 
@@ -28,12 +28,12 @@ angular.module('matrixApp')
           while (x<y) {
             if (f >= 0) {
               y--;
-              ddF_y += 2;
-              f += ddF_y;
+              ddFy += 2;
+              f += ddFy;
             }
             x++;
-            ddF_x += 2;
-            f += ddF_x;
+            ddFx += 2;
+            f += ddFx;
           
             drawPixel(x0 + x, y0 + y, color);
             drawPixel(x0 - x, y0 + y, color);
@@ -44,7 +44,7 @@ angular.module('matrixApp')
             drawPixel(x0 + y, y0 - x, color);
             drawPixel(x0 - y, y0 - x, color);
           }
-        } 
+        }
 
         var drawPixel = function(x, y, color) {
           ctx.fillStyle = '#FFFF00';
@@ -60,7 +60,7 @@ angular.module('matrixApp')
           coordenadasService.borrar();
           drawCircle(17,5,1+p);
           p++;
-          if(p == 4){
+          if(p === 4){
             p =0;
           }
         }, 1200);

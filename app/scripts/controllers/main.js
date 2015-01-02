@@ -1,52 +1,84 @@
+/*global $:false */
 'use strict';
-
-angular.module('matrixApp')
+angular.module('pixledApp')
   .controller('MainCtrl', function ($scope, coordenadasService) {
-    $scope.preset = 'hola';
-    $scope.colors = ['fff','000','f00','0f0','00f','777','f8d','f05','f80','0f8','FFFF00','08f','408','8ff'];
-    $scope.elcolor = 'FFFFFF';
+    $scope.movida = '';
+    $scope.elcolor = 'fff';
     $scope.listaNombres = [];
+    $scope.canvasWidth = 1;
+    $scope.canvasHeight = 1;
+
+//    $scope.$on('$viewContentLoaded', $scope.init);
 
     $scope.borrar = function(){
       coordenadasService.borrar();
     };
+    $scope.rellenar = function(){
+      coordenadasService.rellenar();
+    };
     $scope.guardarDibujo = function(){
       coordenadasService.copyFbRecord($scope.nombreDibujo);
       $('#configuracion').modal('hide');
-      $scope.preset = coordenadasService.pillarPresets();
-      $scope.preset.then(function(snap){
+      $scope.movida = coordenadasService.getPresets();
+      $scope.movida.then(function(snap){
         snap.forEach(function(data){
           $scope.listaNombres.push(data.name());
         });
       });
     };
-    $scope.preset = coordenadasService.pillarPresets();
-    $scope.preset.then(function(snap){
+    $scope.movida = coordenadasService.getPresets();
+    $scope.movida.then(function(snap){
       snap.forEach(function(data){
         $scope.listaNombres.push(data.name());
       });
     });
     $scope.seleccionPreset = function(){
-      coordenadasService.sustituirPreset($scope.preset);
-    }
-    $scope.botonColor = function(color) {
-      $scope.elcolor = color;
+      $('#settings').modal('hide');
+      coordenadasService.setPreset($scope.preset);
     };
 
-    $scope.$watch("colorpicker", function(newValue, oldValue) {
-      if(typeof newValue == "undefined")
-        return;
-      if (newValue.charAt(0) == '#') {
-        $scope.elcolor = newValue.substr(1);
-      }
-    });
+    angular.element(document).ready(function () {
+      $('.toolbar').find('a').click(function(e){
+          e.preventDefault();
+      });
+      $('#modal-config').click(function(e){
+        e.preventDefault();
+        $('#settings').modal();
+      });
 
-    $scope.$watch("elcolor", function(newValue, oldValue) {
-      if(typeof newValue == "undefined")
-        return;
-      if (newValue.charAt(0) != '#') {
-        newValue = '#' + newValue;
+      /**
+       * Resize canvas on window resizing
+       * @param canvas
+       */
+      function resizeCanvas(canvas){
+        if(canvas.length == 0) return;
+        // stage dimensions
+        var canvasWidth = canvas.width(), // your stage width
+        canvasHeight = canvas.height(), // your stage height
+        parentWidth = canvas.parent().width(),
+        parentHEight = canvas.parent().width();
+
+        var scale = {x: 1, y: 1};
+        scale.x = (parentWidth - 50) / canvas.width();
+        scale.y = (parentHEight - 50) / canvas.height();
+
+        if (scale.x < 1 || scale.y < 1) {
+            scale = '1, 1';
+        } else if (scale.x < scale.y) {
+            scale = scale.x + ', ' + scale.x;
+        } else {
+            scale = scale.y + ', ' + scale.y;
+        }
+        var context = canvas[0].getContext("2d");
+        context.imageSmoothingEnabled = false;
+        context.scale(scale.x -.04, scale.y-.04);
+        //canvas.css('width', canvas.parent().width());
+      canvas.css('max-width', $(window).height() - 130);
       }
-      $scope.colorpicker = newValue;
+
+      resizeCanvas($('#canvasdraw'));
+      $(window).resize(function() {
+        resizeCanvas($('#canvasdraw'));
+      });
     });
   });
