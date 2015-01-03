@@ -31,11 +31,12 @@
         <div class="row">
           <div class="col-md-6 first">
             <div class="form-group">
-            <label class="hide" for="presets">Cargar un dibujo</label>
-            <select id="presets" class="form-control" ng-model="preset" ng-change="seleccionPreset()">
-              <option value="" checked="checked">Cargar dibujo</option>
-              <option ng-repeat="nombre in listaNombres" value="{{nombre}}">{{nombre}}</option>
-            </select>
+              <label class="hide" for="presets">Cargar un dibujo</label>
+              <select id="presets" class="form-control" ng-model="preset" ng-change="seleccionPreset()">
+                <option value="" checked="checked">Cargar dibujo</option>
+                <option ng-repeat="nombre in listaNombres" value="{{nombre}}">{{nombre}}</option>
+              </select>
+
               <p class="help-block">Selecciona el dibujo que quieres cargar</p>
             </div>
           </div>
@@ -43,7 +44,7 @@
             <form class="form" role="search">
               <div class="form-group">
                 <input id="nombredibujo" placeholder="Guardar el dibujo " type="text" class="form-control"
-                     ng-model="nombreDibujo">
+                       ng-model="nombreDibujo">
               </div>
               <button class="btn btn-success" type="button" ng-click="guardarDibujo()"><span
                 class="glyphicon glyphicon-floppy-save"></span> Guardar
@@ -68,25 +69,23 @@
       </div>
     </div>
     <div class="row">
-    <div class="toolbar">
-        <!--<a href="#" class="btn btn-default tool-icon tool-pen"></a>
-        <a href="#" class="btn btn-default tool-icon tool-eraser"></a>
-        <a href="#" class="btn btn-default tool-icon tool-paint-bucket"></a>-->
-        <a href="#" ng-click="borrar()" title="Limpia al pantalla"
-           class="btn btn-default tool-icon tool-garbage"></a>
-        <spectrum-colorpicker ng-model="elcolor" format="hex3"
-                              options="{showInput: true, showButtons:false, replacerClassName: 'spectrum btn btn-default tool-icon', preferredFormat: 'hex3', localStorageKey: true, showPalette: true}">
-        </spectrum-colorpicker>
+      <div class="col-sm-12">
+        <div class="toolbar" toolbar>
+          <a href="#" class="btn tool-icon tool-pen" ng-click="pencil()"></a>
+          <a href="#" class="btn tool-icon tool-eraser" ng-click="eraser()"></a>
+          <a href="#" class="btn tool-icon tool-colorpicker"></a>
+          <spectrum-colorpicker ng-model="elcolor" format="hex3"
+                                options="{showInput: true, showButtons:false, replacerClassName: 'spectrum btn btn-default tool-icon', preferredFormat: 'hex3', localStorageKey: true, showPalette: true}">
+          </spectrum-colorpicker>
 
+          <!--<a href="#" class="btn btn-default tool-icon tool-pen"></a>
+          <a href="#" class="btn btn-default tool-icon tool-eraser"></a>
+          <a href="#" class="btn btn-default tool-icon tool-paint-bucket"></a>-->
+          <a href="#" ng-click="borrar()" title="Limpia al pantalla"
+             class="btn btn-danger tool-icon tool-garbage"></a>
 
-      <!--button type="button" class="btn btn-default btn-lg" ng-click="rellenar()"
-              title="Rellena la pantalla con el color actual">
-          <span class="glyphicon glyphicon-certificate"></span>
-      </button-->
-      <!--div class="colorpicker-container">
-          <input ng-model="elcolor" type="text" value="000" name="border-color" class="pick-a-color form-control">
-      </div-->
+        </div>
+      </div>
     </div>
-  </div>
   </div>
 </div>

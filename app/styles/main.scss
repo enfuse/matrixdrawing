@@ -35,6 +35,11 @@ a:hover {
     max-width: 600px;
     object-fit: fill;
     //image-rendering:crisp-edges;
+    &.pincel{
+      
+    }
+
+
     &#canvasdraw {
       background-color: #000;
     }

@@ -116,12 +116,18 @@ angular.module('pixledApp')
           var y0 = (lastPoint === null) ? y1 : lastPoint[1];
           var dx = Math.abs(x1 - x0), dy = Math.abs(y1 - y0);
           var sx = (x0 < x1) ? 1 : -1, sy = (y0 < y1) ? 1 : -1, err = dx - dy;
+          if(scope.tool == 'eraser')
+            drawPixel(x0, y0, "#000000");
+          else
+            drawPixel(x0, y0, scope.elcolor);
 
-          drawPixel(x0, y0, scope.elcolor);
           while (true) {
             //write the pixel into Firebase, or if we are drawing white, remove the pixel
+            if(scope.tool == 'eraser')
+              var color = coordenadasService.addCoordenada(x0 + ':' + y0,  "000000");
+            else
+              var color = coordenadasService.addCoordenada(x0 + ':' + y0, scope.elcolor.replace('#',''));
 
-            var color = coordenadasService.addCoordenada(x0 + ':' + y0, scope.elcolor.replace('#',''));
             if (x0 === x1 && y0 === y1){
               break;
             }
@@ -140,7 +146,8 @@ angular.module('pixledApp')
 
         // canvas reset
         function reset(){
-           element[0].width = element[0].width;
+          element[0].width = element[0].width;
+          drawGrid();
         }
 
         function offsetAngular(elm) {
@@ -159,6 +166,7 @@ angular.module('pixledApp')
 
         //draw pixel boxes on canvas
         function drawGrid(){
+          console.log("dg");
           for (var xx1 = 0; xx1 <= bw; xx1 += pixled.pixel_size) {
             canvas.moveTo(0.5 + xx1 + p, p);
             canvas.lineTo(0.5 + xx1 + p, bh + p);
@@ -171,6 +179,7 @@ angular.module('pixledApp')
           canvas.strokeStyle = '#111';
           canvas.stroke();
         }
+        drawGrid();
 
 
         var drawPixelFromService = function(snapshot) {
@@ -190,7 +199,7 @@ angular.module('pixledApp')
           }
           canvas.putImageData(imgData,parseInt(x) * 20 ,parseInt(y)*20);
           buffer[x][y] = color;
-          drawGrid();
+          drawGrid();//@ŧodo Tengo que evitar esto!!!
         };
 
         

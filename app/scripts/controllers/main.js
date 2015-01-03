@@ -7,8 +7,19 @@ angular.module('pixledApp')
     $scope.listaNombres = [];
     $scope.canvasWidth = 1;
     $scope.canvasHeight = 1;
+    $scope.tool = '';
 
 //    $scope.$on('$viewContentLoaded', $scope.init);
+    $scope.pencil = function(){
+      $('#canvasdraw').css('cursor', 'url(/img/tools/pen-24.png) 0 23, auto');
+      $scope.tool = 'pencil';
+    };
+    $scope.pencil();
+    $scope.eraser = function(){
+      $('#canvasdraw').css('cursor', 'url(/img/tools/eraser-24.png) 0 23, auto');
+      $scope.tool = 'eraser';
+    };
+
 
     $scope.borrar = function(){
       coordenadasService.borrar();
