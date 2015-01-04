@@ -20,18 +20,23 @@ angular.module('pixledApp')
         coordenadasService.on('child_removed',function(data){
           $timeout(function(){
             //clearPixel(data);
-            reset();
+            reset(cDraw, ctxDraw);
           },100,false);
         });
 
-        var canvas = element[0].getContext('2d');
+        var cTake = element.find('#canvas_take');
+        var cDraw = element.find('#canvas_draw');
+        var cGrid = element.find('#canvas_grid');
+        var ctxTake = element[0].querySelector('#canvas_take').getContext('2d');
+        var ctxGrid = element[0].querySelector('#canvas_grid').getContext('2d');
+        var ctxDraw = element[0].querySelector('#canvas_draw').getContext('2d');
+
+
         // variable that decides if something should be drawn on mousemove
         var drawing = false;
-        // the last coordinates before the current move
-        //var pixSize = pixled.pixel_size,
 
-        var bw = element.width(),
-        bh = element.height(),
+        var bw = cGrid.width(),
+        bh = cGrid.height(),
         mouseDown = false,
         lastPoint = null,
         buffer = [pixled.pixels_x];
@@ -42,70 +47,78 @@ angular.module('pixledApp')
         //$parsedding around grid
         var p = 0;
 
-        element.bind('touchmove', function(event){
+        cTake.bind('touchmove', function(event){
           event.preventDefault();
           //drawGrid();
           drawing = true;
           draw(event.originalEvent.touches[0].pageX, event.originalEvent.touches[0].pageY);
         });
 
-        element.bind('touchend', function(event){
+        cTake.bind('touchend', function(event){
           //drawGrid();
           lastPoint = null;
           drawing = false;
         });
 
-        element.bind('touchcancel', function(event){
+        cTake.bind('touchcancel', function(event){
           //drawGrid();
           lastPoint = null;
           drawing = false;
         });
 
-        element.on('mousedown', function(){
+        cTake.on('mousedown', function(){
           //drawGrid();
           drawing = true;
           mouseDown = true;
           draw(event.pageX, event.pageY);
         });
 
-        element.bind('mousemove', function(event){
+        cTake.bind('mousemove', function(event){
           //drawGrid();
-          if(drawing){
+          console.log();
+          if(event.which == 1){
             draw(event.pageX, event.pageY)
+          }else{
+            if (!Modernizr.touch) {
+              shadow(event.pageX, event.pageY)
+            }
           }
         });
 
-        element.bind('mouseleave', function(event){
+        cTake.bind('mouseleave', function(event){
           //drawGrid();
-          if(drawing){
+          if(drawing && !mouseDown){
             lastPoint = null;
             drawing = false;
+          }else{
+            reset(cTake, ctxTake);
           }
         });
-        element.bind('mouseenter', function(event){
+
+        cTake.bind('mouseenter', function(event){
 
           if(mouseDown){
-            //drawGrid();
             lastPoint = null;
-            drawing = false;
+            //drawing = false;
           }
         });
-        element.bind('mouseup', function(event){
+        cTake.bind('mouseup', function(event){
           // stop drawing
-          //drawGrid();
           if(drawing){
             draw(event.pageX, event.pageY)
           }        
           lastPoint = null;
           mouseDown = false;
           drawing = false;
-        });
+        })
+
+
         
         var draw = function(pageX, pageY) {
-          var canvas = angular.element('#canvasdraw');
-          var offset = offsetAngular(canvas);
-          var cw = canvas.width() / pixled.pixels_x;
-          var ch = canvas.height() / pixled.pixels_y;
+          //var canvas = angular.element('#canvas_draw');
+          var offset = offsetAngular(cDraw);
+          var cw = cDraw.width() / pixled.pixels_x;
+          var ch = cDraw.height() / pixled.pixels_y;
           var x1 = Math.floor(((pageX - offset.left) - 1)  / cw);
           var y1 = Math.floor(((pageY - offset.top) - 1) / ch);
 
@@ -145,9 +158,8 @@ angular.module('pixledApp')
         };
 
         // canvas reset
-        function reset(){
-          element[0].width = element[0].width;
-          drawGrid();
+        function reset(canvas, ctx){
+          ctx.clearRect(0, 0, canvas.width(), canvas.height());
         }
 
         function offsetAngular(elm) {
@@ -166,18 +178,17 @@ angular.module('pixledApp')
 
         //draw pixel boxes on canvas
         function drawGrid(){
-          console.log("dg");
           for (var xx1 = 0; xx1 <= bw; xx1 += pixled.pixel_size) {
-            canvas.moveTo(0.5 + xx1 + p, p);
-            canvas.lineTo(0.5 + xx1 + p, bh + p);
+            ctxGrid.moveTo(0.5 + xx1 + p, p);
+            ctxGrid.lineTo(0.5 + xx1 + p, bh + p);
           }
           for (var x = 0; x <= bh; x += pixled.pixel_size) {
-            canvas.moveTo(p, 0.5 + x + p);
-            canvas.lineTo(bw + p, 0.5 + x + p);
+            ctxGrid.moveTo(p, 0.5 + x + p);
+            ctxGrid.lineTo(bw + p, 0.5 + x + p);
           }
-          canvas.lineWidth='1';
-          canvas.strokeStyle = '#111';
-          canvas.stroke();
+          ctxGrid.lineWidth='0.75';
+          ctxGrid.strokeStyle = '#111';
+          ctxGrid.stroke();
         }
         drawGrid();
 
@@ -188,7 +199,7 @@ angular.module('pixledApp')
         };
 
         var drawPixel = function(x,y,color) {
-          var imgData=canvas.createImageData(20,20);
+          var imgData=ctxDraw.createImageData(20,20);
           var rgb = hexToRgb(color);
           if(!rgb) return; //if not correct color
           for (var i=0;i<imgData.data.length;i+=4){
@@ -197,11 +208,32 @@ angular.module('pixledApp')
             imgData.data[i+2]= rgb.b;
             imgData.data[i+3]=255;
           }
-          canvas.putImageData(imgData,parseInt(x) * 20 ,parseInt(y)*20);
-          buffer[x][y] = color;
-          drawGrid();//@ŧodo Tengo que evitar esto!!!
+          ctxDraw.putImageData(imgData,parseInt(x) * 20 ,parseInt(y)*20);
+          //buffer[x][y] = color;
         };
 
+        var shadow = function(x,y) {
+          reset(cTake, ctxTake);
+          var offset = offsetAngular(cDraw);
+          var cw = cTake.width() / pixled.pixels_x;
+          var ch = cTake.height() / pixled.pixels_y;
+          var x1 = Math.floor(((x - offset.left) - 1)  / cw);
+          var y1 = Math.floor(((y - offset.top) - 1) / ch);
+
+
+
+          var rgb = hexToRgb(scope.elcolor);
+          var imgData=ctxTake.createImageData(20,20);
+          for (var i=0;i<imgData.data.length;i+=4){
+            imgData.data[i+0]= rgb.r;
+            imgData.data[i+1]= rgb.g;
+            imgData.data[i+2]= rgb.b;
+            imgData.data[i+3]=255;
+          }
+          ctxTake.putImageData(imgData,parseInt(x1) * 20 ,parseInt(y1)*20);
+          //buffer[x][y] = color;
+
+        };
         
         /*var clearPixel = function(snapshot) {
           var coords = snapshot.name().split(':');

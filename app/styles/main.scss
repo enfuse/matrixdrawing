@@ -33,14 +33,23 @@ a:hover {
   canvas{
     width: 100%;
     max-width: 600px;
-    object-fit: fill;
-    //image-rendering:crisp-edges;
+   // object-fit: fill;
+    image-rendering:crisp-edges;
     &.pincel{
       
     }
 
+    &#canvas_take {
+      position: absolute;
+      z-index: 1000;
+    }
 
-    &#canvasdraw {
+    &#canvas_grid {
+      position: absolute;
+      z-index: 900;
+    }
+
+    &#canvas_draw {
       background-color: #000;
     }
   }

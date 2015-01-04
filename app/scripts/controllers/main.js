@@ -87,9 +87,13 @@ angular.module('pixledApp')
       canvas.css('max-width', $(window).height() - 130);
       }
 
-      resizeCanvas($('#canvasdraw'));
+      resizeCanvas($('#canvas_draw'));
+      resizeCanvas($('#canvas_take'));
+      resizeCanvas($('#canvas_grid'));
       $(window).resize(function() {
-        resizeCanvas($('#canvasdraw'));
+        resizeCanvas($('#canvas_draw'));
+        resizeCanvas($('#canvas_take'));
+        resizeCanvas($('#canvas_grid'));
       });
     });
   });
