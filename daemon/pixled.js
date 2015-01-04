@@ -72,7 +72,7 @@ serial.on('data', function (data) {
 
 var init = function () {
   timer = setInterval(sendPixels, 50);//1000ms/50 = 20fps
-}
+};
 
 var sendPixels = function () {
   var initDraw = new Buffer(1);
@@ -80,13 +80,13 @@ var sendPixels = function () {
   serial.write(initDraw);
   serial.write(buffer);
   //console.log(JSON.stringify(buffer));
-}
+};
 
 var clearPixels = function (snapshot) {
   for (i = 0; i < bufferSize; i++) {
     buffer[i] = 0; // reset
   }
-}
+};
 
 var drawPixel = function (snapshot) {
   var coords = snapshot.key().split(":");
@@ -95,11 +95,11 @@ var drawPixel = function (snapshot) {
   buffer[pos] = rgb.g * config.gammaG;
   buffer[pos + 1] = rgb.r * config.gammaR;
   buffer[pos + 2] = rgb.b * config.gammaB;
-}
+};
 
 var coordsToPos = function (coords) {
   return parseInt((config.cols * coords[1])) + parseInt(coords[0]);
-}
+};
 
 var hexToRgb = function (hex) {
   // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
@@ -114,7 +114,7 @@ var hexToRgb = function (hex) {
     g: parseInt(result[2], 16),
     b: parseInt(result[3], 16)
   } : null;
-}
+};
 
 pixelDataRef.on('child_added', drawPixel);
 pixelDataRef.on('child_changed', drawPixel);
