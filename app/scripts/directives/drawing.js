@@ -5,6 +5,27 @@ angular.module('pixledApp')
     return {
       restrict: 'A',
       link: function(scope, element){
+        var
+          cTake = element.find('#canvas_take'),
+          cDraw = element.find('#canvas_draw'),
+          cGrid = element.find('#canvas_grid'),
+          ctxTake = element[0].querySelector('#canvas_take').getContext('2d'),
+          ctxGrid = element[0].querySelector('#canvas_grid').getContext('2d'),
+          ctxDraw = element[0].querySelector('#canvas_draw').getContext('2d');
+
+        var tools = {};
+
+        var
+          bw = cGrid.width(),
+          bh = cGrid.height(),
+          lastPoint = null,
+          buffer = [pixled.pixels_x];
+
+        for (var i=0; i <pixled.pixels_x; i++)
+          buffer[i]=new Array(pixled.pixels_y)
+
+
+
         coordenadasService.on('child_added',function(data){
           $timeout(function(){
             drawPixelFromService(data);
@@ -19,27 +40,9 @@ angular.module('pixledApp')
 
         coordenadasService.on('child_removed',function(data){
           $timeout(function(){
-            //clearPixel(data);
             reset(cDraw, ctxDraw);
           },100,false);
         });
-
-        var cTake = element.find('#canvas_take');
-        var cDraw = element.find('#canvas_draw');
-        var cGrid = element.find('#canvas_grid');
-        var ctxTake = element[0].querySelector('#canvas_take').getContext('2d');
-        var ctxGrid = element[0].querySelector('#canvas_grid').getContext('2d');
-        var ctxDraw = element[0].querySelector('#canvas_draw').getContext('2d');
-
-        var bw = cGrid.width(),
-        bh = cGrid.height(),
-        lastPoint = null,
-        buffer = [pixled.pixels_x];
-
-        for (var i=0; i <pixled.pixels_x; i++)
-          buffer[i]=new Array(pixled.pixels_y)
-
-        var p = 0;
 
         //Touch events
         cTake.on('touchmove', function(event){
@@ -154,12 +157,12 @@ angular.module('pixledApp')
         //draw pixel boxes on canvas
         function drawGrid(){
           for (var xx1 = 0; xx1 <= bw; xx1 += pixled.pixel_size) {
-            ctxGrid.moveTo(0.5 + xx1 + p, p);
-            ctxGrid.lineTo(0.5 + xx1 + p, bh + p);
+            ctxGrid.moveTo(0.5 + xx1, 0);
+            ctxGrid.lineTo(0.5 + xx1, bh + 0);
           }
           for (var x = 0; x <= bh; x += pixled.pixel_size) {
-            ctxGrid.moveTo(p, 0.5 + x + p);
-            ctxGrid.lineTo(bw + p, 0.5 + x + p);
+            ctxGrid.moveTo(0, 0.5 + x);
+            ctxGrid.lineTo(bw, 0.5 + x);
           }
           ctxGrid.lineWidth='0.75';
           ctxGrid.strokeStyle = '#111';
