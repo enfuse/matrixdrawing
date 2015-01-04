@@ -120,4 +120,4 @@ pixelDataRef.on('child_added', drawPixel);
 pixelDataRef.on('child_changed', drawPixel);
 pixelDataRef.on('child_removed', clearPixels);
 
-setTimeout(init, 500);
+init();
