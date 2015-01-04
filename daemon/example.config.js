@@ -18,7 +18,7 @@ module.exports = {
 	clog : true,
 
   //Color correction
-  gammaR : 0.5,
+  gammaR : 0.4,
   gammaG : 0.7,
   gammaB : 0.7,
 
