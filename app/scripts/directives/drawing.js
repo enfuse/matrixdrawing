@@ -31,88 +31,63 @@ angular.module('pixledApp')
         var ctxGrid = element[0].querySelector('#canvas_grid').getContext('2d');
         var ctxDraw = element[0].querySelector('#canvas_draw').getContext('2d');
 
-
-        // variable that decides if something should be drawn on mousemove
-        var drawing = false;
-
         var bw = cGrid.width(),
         bh = cGrid.height(),
-        mouseDown = false,
         lastPoint = null,
         buffer = [pixled.pixels_x];
 
         for (var i=0; i <pixled.pixels_x; i++)
           buffer[i]=new Array(pixled.pixels_y)
 
-        //$parsedding around grid
         var p = 0;
 
-        cTake.bind('touchmove', function(event){
+        //Touch events
+        cTake.on('touchmove', function(event){
           event.preventDefault();
-          //drawGrid();
-          drawing = true;
           draw(event.originalEvent.touches[0].pageX, event.originalEvent.touches[0].pageY);
         });
 
-        cTake.bind('touchend', function(event){
-          //drawGrid();
+        cTake.on('touchend', function(event){
           lastPoint = null;
-          drawing = false;
         });
 
-        cTake.bind('touchcancel', function(event){
-          //drawGrid();
+        cTake.on('touchcancel', function(event){
           lastPoint = null;
-          drawing = false;
         });
 
-        cTake.on('mousedown', function(){
-          //drawGrid();
-          drawing = true;
-          mouseDown = true;
+        //Mouse events
+        cTake.on('mousedown', function(event){
+          event.preventDefault();
           draw(event.pageX, event.pageY);
         });
 
-        cTake.bind('mousemove', function(event){
-          //drawGrid();
-          console.log();
+        cTake.on('mouseup', function(event){
+          lastPoint = null;
+        });
+
+        cTake.on('mousemove', function(event){
+          event.preventDefault();
           if(event.which == 1){
             draw(event.pageX, event.pageY)
-          }else{
-            if (!Modernizr.touch) {
-              shadow(event.pageX, event.pageY)
-            }
+          }
+          if (!Modernizr.touch) {
+            shadow(event.pageX, event.pageY)
           }
         });
 
-        cTake.bind('mouseleave', function(event){
-          //drawGrid();
-          if(drawing && !mouseDown){
+        cTake.on('mouseleave', function(event){
+          if(!event.which != 1){
             lastPoint = null;
-            drawing = false;
           }else{
             reset(cTake, ctxTake);
           }
         });
 
-        cTake.bind('mouseenter', function(event){
-
-          if(mouseDown){
+        cTake.on('mouseenter', function(event){
+          if(event.which == 1){
             lastPoint = null;
-            //drawing = false;
           }
         });
-        cTake.bind('mouseup', function(event){
-          // stop drawing
-          if(drawing){
-            draw(event.pageX, event.pageY)
-          }        
-          lastPoint = null;
-          mouseDown = false;
-          drawing = false;
-        })
-
-
         
         var draw = function(pageX, pageY) {
           //var canvas = angular.element('#canvas_draw');
