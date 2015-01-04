@@ -92,9 +92,9 @@ var drawPixel = function (snapshot) {
   var coords = snapshot.key().split(":");
   var pos = coordsToPos(coords) * 3;
   var rgb = hexToRgb(snapshot.val());
-  buffer[pos] = rgb.g * config.br;
-  buffer[pos + 1] = rgb.r * config.br;
-  buffer[pos + 2] = rgb.b * config.br;
+  buffer[pos] = rgb.g * config.gammaG;
+  buffer[pos + 1] = rgb.r * config.gammaR;
+  buffer[pos + 2] = rgb.b * config.gammaB;
 }
 
 var coordsToPos = function (coords) {

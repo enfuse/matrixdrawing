@@ -16,7 +16,12 @@ module.exports = {
 
 	//Show console info if true
 	clog : true,
-	
+
+  //Color correction
+  gammaR : 0.5,
+  gammaG : 0.7,
+  gammaB : 0.7,
+
 	//Serial port config
 	serial_port : "/dev/ttyUSB0",
 	baud_rate : '1000000'
