@@ -8,16 +8,13 @@ angular.module('pixledApp')
         var
           cTake = element.find('#canvas_take'),
           cDraw = element.find('#canvas_draw'),
-          cGrid = element.find('#canvas_grid'),
           ctxTake = element[0].querySelector('#canvas_take').getContext('2d'),
-          ctxGrid = element[0].querySelector('#canvas_grid').getContext('2d'),
           ctxDraw = element[0].querySelector('#canvas_draw').getContext('2d');
 
         var tools = {};
+        var activeTool = 'pencil';
 
         var
-          bw = cGrid.width(),
-          bh = cGrid.height(),
           lastPoint = null,
           buffer = [pixled.pixels_x];
 
@@ -93,7 +90,6 @@ angular.module('pixledApp')
         });
         
         var draw = function(pageX, pageY) {
-          //var canvas = angular.element('#canvas_draw');
           var offset = offsetAngular(cDraw);
           var cw = cDraw.width() / pixled.pixels_x;
           var ch = cDraw.height() / pixled.pixels_y;
@@ -113,11 +109,11 @@ angular.module('pixledApp')
             drawPixel(x0, y0, scope.elcolor);
 
           while (true) {
-            //write the pixel into Firebase, or if we are drawing white, remove the pixel
+            //write the pixel into Firebase
             if(scope.tool == 'eraser')
-              var color = coordenadasService.addCoordenada(x0 + ':' + y0,  "000000");
+              coordenadasService.addCoordenada(x0 + ':' + y0,  "000000");
             else
-              var color = coordenadasService.addCoordenada(x0 + ':' + y0, scope.elcolor.replace('#',''));
+              coordenadasService.addCoordenada(x0 + ':' + y0, scope.elcolor.replace('#',''));
 
             if (x0 === x1 && y0 === y1){
               break;
@@ -154,23 +150,6 @@ angular.module('pixledApp')
           return { left: _x, top:_y };
         }
 
-        //draw pixel boxes on canvas
-        function drawGrid(){
-          for (var xx1 = 0; xx1 <= bw; xx1 += pixled.pixel_size) {
-            ctxGrid.moveTo(0.5 + xx1, 0);
-            ctxGrid.lineTo(0.5 + xx1, bh + 0);
-          }
-          for (var x = 0; x <= bh; x += pixled.pixel_size) {
-            ctxGrid.moveTo(0, 0.5 + x);
-            ctxGrid.lineTo(bw, 0.5 + x);
-          }
-          ctxGrid.lineWidth='0.75';
-          ctxGrid.strokeStyle = '#111';
-          ctxGrid.stroke();
-        }
-        drawGrid();
-
-
         var drawPixelFromService = function(snapshot) {
           var coords = snapshot.name().split(':');
           drawPixel(coords[0], coords[1], '#'+snapshot.val());
@@ -178,7 +157,7 @@ angular.module('pixledApp')
 
         var drawPixel = function(x,y,color) {
           var imgData=ctxDraw.createImageData(20,20);
-          var rgb = hexToRgb(color);
+          var rgb = _hexToRgb(color);
           if(!rgb) return; //if not correct color
           for (var i=0;i<imgData.data.length;i+=4){
             imgData.data[i+0]= rgb.r;
@@ -187,7 +166,7 @@ angular.module('pixledApp')
             imgData.data[i+3]=255;
           }
           ctxDraw.putImageData(imgData,parseInt(x) * 20 ,parseInt(y)*20);
-          //buffer[x][y] = color;
+          buffer[x][y] = color;
         };
 
         var shadow = function(x,y) {
@@ -197,10 +176,7 @@ angular.module('pixledApp')
           var ch = cTake.height() / pixled.pixels_y;
           var x1 = Math.floor(((x - offset.left) - 1)  / cw);
           var y1 = Math.floor(((y - offset.top) - 1) / ch);
-
-
-
-          var rgb = hexToRgb(scope.elcolor);
+          var rgb = _hexToRgb(scope.elcolor);
           var imgData=ctxTake.createImageData(20,20);
           for (var i=0;i<imgData.data.length;i+=4){
             imgData.data[i+0]= rgb.r;
@@ -209,17 +185,14 @@ angular.module('pixledApp')
             imgData.data[i+3]=255;
           }
           ctxTake.putImageData(imgData,parseInt(x1) * 20 ,parseInt(y1)*20);
-          //buffer[x][y] = color;
-
         };
         
         /*var clearPixel = function(snapshot) {
           var coords = snapshot.name().split(':');
           canvas.clearRect(parseInt(coords[0]) * pixSize, parseInt(coords[1]) * pixSize, pixSize, pixSize);
-          //drawGrid();
         };*/
 
-        var hexToRgb = function(hex) {
+        var _hexToRgb = function(hex) {
           // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
           var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
           hex = hex.replace(shorthandRegex, function(m, r, g, b) {
