@@ -114,18 +114,6 @@ gulp.task('html', ['wiredep', 'injector:css', 'injector:js', 'partials'], functi
     .pipe($.size({ title: 'dist/', showFiles: true }));
 });
 
-gulp.task('images', function () {
-  return gulp.src('app/images/**/*')
-    .pipe($.cache($.imagemin({
-      optimizationLevel: 3,
-      progressive: true,
-      interlaced: true
-    })))
-    .pipe(gulp.dest('dist/images/'));
-
-});
-
-
 gulp.task('img', function () {
 
   return gulp.src('app/img/**/*')
