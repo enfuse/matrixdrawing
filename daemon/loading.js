@@ -10,7 +10,7 @@ if (!fs.existsSync('./config.js')) {
 }
 var config = require('./config.js');
 
-var source = 168;
+var source = 167;
 var step = 1;
 
 //Check if this should work as a daemon
@@ -46,7 +46,7 @@ var init = function () {
   for(var i=0; i<=bufferSize; i++){
     buffer[i]=0;
   }
-  timer = setInterval(sendPixels, 50);//1000ms/50 = 20fps
+  timer = setInterval(sendPixels, 300);//1000ms/50 = 20fps
 }
 
 var sendPixels = function () {
@@ -55,24 +55,27 @@ var sendPixels = function () {
   }
   switch(step) {
     case 1:
-      buffer[source *3] = 255;
+      step++;
+      buffer[source *3] = 0;
       buffer[(source * 3) + 1] = 255;
-      buffer[(source * 3) + 2] = 255;
+      buffer[(source * 3) + 2] = 0;
       break;
     case 2:
+      step++;
       var calc = source +1;
       buffer[calc *3] = 255;
-      buffer[(calc * 3) + 1] = 255;
-      buffer[(calc * 3) + 2] = 255;
+      buffer[(calc * 3) + 1] = 0;
+      buffer[(calc * 3) + 2] = 0;
       break;
     case 3:
-      var calc = source +16;
+      step++;
+      var calc = source +17;
       buffer[calc *3] = 255;
       buffer[(calc * 3) + 1] = 255;
       buffer[(calc * 3) + 2] = 255;
       break;
     case 4:
-      var calc = source +17;
+      var calc = source +16;
       step = 1;
       buffer[calc *3] = 255;
       buffer[(calc * 3) + 1] = 255;
