@@ -9,6 +9,10 @@ module.exports = {
   	rows : 16,
   	cols : 16,
 
+
+	//Matrix format "E" or "S". If led strips are always from left to right chose E, if the direction is alternated chose S
+	format: "S",
+
   //Brightness temporal (need a potentiometer)
   br : 0.4,
 	//Run as daemon

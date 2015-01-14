@@ -98,7 +98,17 @@ var drawPixel = function (snapshot) {
 };
 
 var coordsToPos = function (coords) {
-  return parseInt((config.cols * coords[1])) + parseInt(coords[0]);
+  if(config.format == 'E'){
+    return parseInt((config.cols * coords[1])) + parseInt(coords[0]);
+  }else{
+    var turn = (coords[1] == parseFloat(coords[1])? !(coords[1]%2) : void 0);
+    if(turn){
+      return parseInt((config.cols * coords[1])) + (16 - parseInt(coords[0]));
+    }else{
+      return parseInt((config.cols * coords[1])) + parseInt(coords[0]);
+    }
+  }
+
 };
 
 var hexToRgb = function (hex) {
