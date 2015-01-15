@@ -44,6 +44,7 @@ serial.on('open', function () {
   if (config.clog) {
     console.log("-- Port open --");
   }
+  init();
 });
 
 // called when the serial port closes:
@@ -71,6 +72,12 @@ serial.on('data', function (data) {
 
 
 var init = function () {
+  pixelDataRef.on('child_added', drawPixel);
+  pixelDataRef.on('child_changed', drawPixel);
+  pixelDataRef.on('child_removed', clearPixels);
+  pixelDataRef.once("value", function(snapshot){if(config.clog) console.log("Data loaded");});
+
+  clearPixels();
   timer = setInterval(sendPixels, 50);//1000ms/50 = 20fps
 };
 
@@ -101,9 +108,9 @@ var coordsToPos = function (coords) {
   if(config.format == 'E'){
     return parseInt((config.cols * coords[1])) + parseInt(coords[0]);
   }else{
-    var turn = (coords[1] == parseFloat(coords[1])? !(coords[1]%2) : void 0);
+    var turn = !(coords[1] == parseFloat(coords[1])? !(coords[1]%2) : void 0);
     if(turn){
-      return parseInt((config.cols * coords[1])) + (16 - parseInt(coords[0]));
+      return parseInt((config.cols * coords[1])) + (15 - parseInt(coords[0]));
     }else{
       return parseInt((config.cols * coords[1])) + parseInt(coords[0]);
     }
@@ -126,8 +133,3 @@ var hexToRgb = function (hex) {
   } : null;
 };
 
-pixelDataRef.on('child_added', drawPixel);
-pixelDataRef.on('child_changed', drawPixel);
-pixelDataRef.on('child_removed', clearPixels);
-
-init();
